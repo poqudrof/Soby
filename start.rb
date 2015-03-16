@@ -18,7 +18,15 @@ require 'myVideo'
 
 
 @app = Sketch.new 
- 
+
+file = "dessin.svg" 
+if $app.ready? 
+  @prez = Presentation.new($app, $app.sketchPath(file))
+  $app.set_prez @prez 
+end 
+
+
+
 # @file =  "final//raster//raster.svg"
 # @prez = Presentation.new(@app, @app.sketchPath(@file)); nil;
 # @app.set_prez(@prez)
@@ -40,6 +48,6 @@ require 'myVideo'
 # $app.color_mode true
 # $app.background_constrain = true
 
-# $app.reset_background
- 
-$app.background_constrain = false
+  # $app.reset_background
+  
+  # $app.background_constrain = false

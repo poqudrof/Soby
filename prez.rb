@@ -16,12 +16,12 @@ class Sketch < Processing::App
 
   import 'toxi.geom.Matrix4x4'
 
-  attr_accessor :prez, :prev_cam, :next_cam, :current_slide_no, :slides
-  attr_accessor :cam
-  attr_accessor :background_max_color, :background_min_color, :background_constrain
+  attr_accessor :prez, :prev_cam, :next_cam, :slides
+  attr_reader :is_moving, :current_slide_no
 
-  #debug
-  attr_accessor :toto
+#  attr_accessor :background_max_color, :background_min_color, :background_constrain
+  attr_accessor :cam
+
   
   def running? () @is_running  end
 
@@ -41,23 +41,22 @@ class Sketch < Processing::App
 
 
   def setup 
-
+    @ready = false
     size 1024, 768, OPENGL
 
-    file = sketchPath("dessin.svg")
-    
     init_player
 
-
-    @prez = Presentation.new(self, file)
-    set_prez(@prez)
+    @ready = true
   end 
+
+  def ready?
+    @ready
+  end
 
   def init_player 
     @prez = nil
     @current_slide_no = 0
     @is_running = false
-    @playing_videos = []
     init_cameras
   end
 
@@ -72,10 +71,18 @@ class Sketch < Processing::App
   end
 
 
+  ## To be overriden by the Presentation Code. 
+  def preDraw
 
+  end
 
+  def postDraw
+
+  end
 
   def draw 
+    preDraw
+
     background(255)
     smooth(8)
 
@@ -85,18 +92,21 @@ class Sketch < Processing::App
     if(running?)
       
       push_matrix
+
       update_cam
       self.g.modelview.apply(@cam)
+#      shape @prez.pshape, 0, 0
 
-      shape @prez.pshape, 0, 0
+      @prez.draw
 
       pop_matrix
       
       run_slide_code 
-      display_video 
+#      display_video 
       display_slide_number 
     end
 
+    postDraw
   end
 
   def run_slide_code 
@@ -110,49 +120,6 @@ class Sketch < Processing::App
     end
   end
 
-  def display_video 
-    if not @is_moving 
-      
-      # # Display the videos
-      if @current_slide_no > 0 and  @slides[@current_slide_no].has_videos? 
-        
-        # ## Debug, absolute drawing of elements
-        push_matrix
-        
-        # Use the camera
-        self.g.modelview.apply(@cam)
-        
-        # draw the object
-        imageMode(CORNER)
-        
-        @slides[@current_slide_no].videos.each do |my_video| 
-          
-          push_matrix
-          self.g.modelview.apply(my_video.matrix)
-          
-          # when the video is loaded it is saved... so that the memory can
-          # hopefully be freed
-          @playing_videos << my_video if my_video.play 
-          
-          my_video.video.read if my_video.video.available?           
-          image(my_video.video, 0, 0, my_video.width, my_video.height)
-          
-          pop_matrix
-        end # videos.each
-        
-        pop_matrix
-      else  # has_videos
-
-        ## no video, free some memory 
-        @playing_videos.each do |my_video|
-          my_video.video.stop
-          my_video.video = nil 
-          System.gc
-        end
-        @playing_videos =  []
-      end 
-    end
-  end
 
   def display_slide_number 
     # Slide number

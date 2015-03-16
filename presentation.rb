@@ -1,4 +1,5 @@
 
+require 'base64'
 
 class Presentation 
 
@@ -10,34 +11,43 @@ class Presentation
   attr_accessor :width, :height, :matrix, :videos
   attr_reader  :nb_slides, :debug
 
+  attr_accessor :graphics
+
   def initialize (app, url)
     @app = app
     xml = app.loadXML(url)
     @pshape = PShapeSVG.new(xml)
     @svg = Nokogiri::XML(open(url)).children[1];
+    @graphics = @app.g
     build_internal
   end
 
   def width ; @pshape.getWidth; end
   def height ; @pshape.getHeight; end
 
-  private 
 
   def build_internal 
 
-    @debug = []
-    
     # Create the frames.. 
     @slides = {}
     @nb_slides = 0
 
     load_frames
-    
     load_videos
     load_animations
 
+    # Processing Bug - images not loading
+    load_images_processing
   end
-  
+
+  def draw
+    @graphics.shape pshape, 0, 0
+    display_images_processing
+    display_videos
+
+
+  end
+
 
   def load_frames
 
@@ -146,9 +156,87 @@ class Presentation
   end
 
 
+
+  def load_images_processing
+    puts "Loading the images for Processing."
+
+    @images_processing = [];
+ 
+    @svg.css("image").each do |image|
+      id = image.attributes["id"].value       #get the id 
+
+      # check that we know the type of file.       
+      is_data = image.attributes["href"].value.start_with?("data")
+      is_link = image.attributes["href"].value.start_with?("file")
+      return unless is_data or is_link
+
+      load_link_image image if is_link
+      load_data_image image if is_data
+    end
+  end
+
+  def load_link_image image
+    transform = get_global_transform image
+
+    # remove the file://  at the beginning
+    path = image.attributes["href"].value[7..-1]
+    puts "Loading ", path
+    img = @app.load_image path
+    @images_processing << [img, transform]
+  end
+
+  def load_data_image image
+    transform = get_global_transform image
+
+    # remove the data:image/ at the beginning
+    raw = image.attributes["href"].value[11..-1]
+    type, data = raw.split(";base64")
+
+    if File.directory?("/dev/shm/")
+      name = "/dev/shm/" + random_name + '.' + type
+    else
+      name = @app.sketch_path + "/" + random_name + '.' + type
+    end
+
+    File.open(name, 'wb') do|f|
+      f.write(Base64.decode64(data))
+    end
+
+    puts "Loading ", name
+    img = @app.load_image name
+    @images_processing << [img, transform]
+
+    File.delete name
+  end
+
+  def random_name 
+    (0...8).map { (65 + rand(26)).chr }.join
+  end
+
+
+  def display_images_processing
+    # draw the object
+    @graphics.imageMode(Processing::App::CORNER)
+    @images_processing.each do |image, transfo|
+      mat = transfo[0]
+      width = transfo[1]
+      height = transfo[2]
+
+      @graphics.push_matrix
+      @graphics.modelview.apply(mat)
+      @graphics.image(image, 0, 0, width, height)
+      @graphics.pop_matrix
+    end
+
+  end
+
+
+
   def load_videos
     # Load the videos...
     puts "Loading the videos..."
+    @playing_videos = []
+
     @svg.css("rect").each do |rect|
       id = rect.attributes["id"].value       #get the id 
 
@@ -162,21 +250,12 @@ class Presentation
       slide_id = t[0]
       path = t[1]
 
-
       puts ("Loading the video : " + path)
-
-      # # TODO : error control
-      # vid = @app.load_video(path)
-      # vid.loop
-
 
       # Get the transformation
       tr = get_global_transform rect 
-      #      video = MyVideo.new(vid, @slides[slide_id], tr[0], tr[1], tr[2]) 
 
       video = MyVideo.new(path, @slides[slide_id], tr[0], tr[1], tr[2]) 
-
-      #      puts "try to add a video " + slide_id
 
       if  @slides[slide_id] == nil 
         puts "Error -> The video #{id}  is linked to the slide #{slide_id} which is not found !" 
@@ -186,19 +265,19 @@ class Presentation
         puts "Video #{id} loaded with  #{slide_id}"
       end
 
-
       # Hide the rect, and ... TODO replace it with a special object
       #      @pshape.getChild(id).setVisible(false)
     end
   end
+
+
 
   def load_animations
 
     puts "Loading the animations..."
 
     @svg.css("*").each do |elem|
-      #    @svg.css("g").each do |elem|
-      #      next if elem.class != Nokogiri::XML::Node
+
       valid = false
       elem.children.each do |child|
         valid = true if child.name == "title" && child.text.match(/animation/)
@@ -235,14 +314,48 @@ class Presentation
 
   end
 
+  def display_videos
+    if not @app.is_moving 
+
+      slide_no = @app.current_slide_no
+
+      # # Display the videos
+      if slide_no > 0 and  @slides[slide_no].has_videos? 
+        
+        # draw the object
+        @graphics.imageMode(Processing::App::CORNER)
+        
+        @slides[slide_no].videos.each do |my_video| 
+          @graphics.push_matrix
+          @graphics.modelview.apply(my_video.matrix)
+          
+          # when the video is loaded it is saved... so that the memory can
+          # hopefully be freed
+          @playing_videos << my_video if my_video.play 
+          
+          my_video.video.read if my_video.video.available?           
+          @graphics.image(my_video.video, 0, 0, my_video.width, my_video.height)
+          
+          @graphics.pop_matrix
+        end # videos.each
+        
+      else  # has_videos
+
+        ## no video, free some memory 
+        @playing_videos.each do |my_video|
+          puts "Saving memory. "
+          my_video.video.stop
+          my_video.video = nil 
+          System.gc
+        end
+        @playing_videos =  []
+      end 
+    end
+  end
 
 
   def to_s 
     "Slides #{@slides.size}" 
   end
-
-
-  # Tests 
-  # -> Numeros ? Pas de manquant etc..
 
 end 
