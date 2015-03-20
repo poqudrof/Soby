@@ -4,6 +4,7 @@ require 'base64'
 class Presentation 
 
   include_package 'processing.core'
+  include_package 'processing.video'
 
   include Soby 
     
@@ -20,6 +21,7 @@ class Presentation
     @svg = Nokogiri::XML(open(url)).children[1];
     @graphics = @app.g
     build_internal
+
   end
 
   def width ; @pshape.getWidth; end
@@ -336,11 +338,13 @@ class Presentation
   def display_videos
     if not @app.is_moving 
 
+
       slide_no = @app.current_slide_no
 
       # # Display the videos
       if slide_no > 0 and  @slides[slide_no].has_videos? 
-        
+
+        puts "Video playing..?"
         # draw the object
         @graphics.imageMode(Processing::App::CORNER)
         

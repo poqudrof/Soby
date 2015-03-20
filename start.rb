@@ -1,45 +1,26 @@
-require 'nokogiri'  # for XML.
-require 'ruby-processing' 
-require 'ostruct'
+require 'soby' 
 
-$:.unshift File.dirname(__FILE__)
+@player = SobyPlayer.new 
 
-require 'java' 
-java_import 'java.lang.System'
+## Presentation - relative elements
 
-
-require 'prez' 
-require 'transforms'
-require 'presentation'
-require 'slide'
-require 'cam' 
-require 'myVideo'
-
-
-
-@app = Sketch.new 
 
 file = "dessin.svg" 
+#require 'custom_background.rb' 
+
 if $app.ready? 
   @prez = Presentation.new($app, $app.sketchPath(file))
   $app.set_prez @prez 
 end 
 
-# Soby::SvgDisplay.new @prez.pshape, @prez.svg
 
 
-
-# @file =  "final//raster//raster.svg"
-# @prez = Presentation.new(@app, @app.sketchPath(@file)); nil;
-# @app.set_prez(@prez)
 
 # #$app.background_min 
-
- 
 # $app.background_amplitude 5, 15
-# $app.background_min 0
-# $app.background_max 255
-# $app.background_rate 10x0
+# $app.background_min 10
+# $app.background_max 20
+# $app.background_rate 100
 # $app.color_mode false 
 # $app.background_constrain = true
 
