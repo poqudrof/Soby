@@ -30,3 +30,8 @@ Code evaluations are supported.
 All within Inkscpe.
 
 
+#### Issues
+
+It requires a specific version of Processing which enables to load
+images from SVG files.
+https://github.com/poqudrof/processing

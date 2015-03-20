@@ -25,6 +25,8 @@ if $app.ready?
   $app.set_prez @prez 
 end 
 
+# Soby::SvgDisplay.new @prez.pshape, @prez.svg
+
 
 
 # @file =  "final//raster//raster.svg"

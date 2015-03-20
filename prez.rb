@@ -81,6 +81,7 @@ class Sketch < Processing::App
   end
 
   def draw 
+
     preDraw
 
     background(255)
@@ -201,6 +202,7 @@ class Sketch < Processing::App
 
     ## Use a big screenshot of the presentation !
     ## Instead of SVG rendering.
+    ## NOT USED FOR NOW
 
     # The image is rendered once and saved as an image
     ratio = 1

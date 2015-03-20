@@ -35,17 +35,13 @@ class Presentation
     load_frames
     load_videos
     load_animations
-
-    # Processing Bug - images not loading
-    load_images_processing
+#    load_images_processing
   end
 
   def draw
     @graphics.shape pshape, 0, 0
-    display_images_processing
+#    display_images_processing
     display_videos
-
-
   end
 
 
@@ -161,7 +157,7 @@ class Presentation
     puts "Loading the images for Processing."
 
     @images_processing = [];
- 
+
     @svg.css("image").each do |image|
       id = image.attributes["id"].value       #get the id 
 
@@ -170,8 +166,31 @@ class Presentation
       is_link = image.attributes["href"].value.start_with?("file")
       return unless is_data or is_link
 
-      load_link_image image if is_link
-      load_data_image image if is_data
+      img, transform = load_link_image image if is_link
+      img, transform = load_data_image image if is_data
+
+      ## save for manual display
+      @images_processing << [img, transform]
+
+      ## try automatic display
+
+      # parent_id = image.parent.attributes["id"].value
+      # parent_pshape = @pshape.getChild(parent_id)
+
+      # theShape = @app.createShape 
+      # theShape.beginShape
+      # theShape.noStroke
+      # theShape.texture img
+      # theShape.vertex(0, 0, 0, 0, 0)
+      # theShape.vertex(transform[1], 0, 0, transform[1], 0)
+      # theShape.vertex(transform[1], transform[2], 0, transform[1], transform[2])
+      # theShape.vertex(0, transform[2], 0, 0, transform[2])
+      # theShape.endShape
+
+      # theShape.setWidth
+      # theShape.setName(image.attributes["id"].value)
+      # parent_pshape.addChild(theShape)
+      
     end
   end
 
@@ -182,7 +201,7 @@ class Presentation
     path = image.attributes["href"].value[7..-1]
     puts "Loading ", path
     img = @app.load_image path
-    @images_processing << [img, transform]
+    [img, transform]
   end
 
   def load_data_image image
@@ -204,9 +223,9 @@ class Presentation
 
     puts "Loading ", name
     img = @app.load_image name
-    @images_processing << [img, transform]
 
     File.delete name
+    [img, transform]
   end
 
   def random_name 
