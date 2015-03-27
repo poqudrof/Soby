@@ -35,3 +35,16 @@ All within Inkscpe.
 It requires a specific version of Processing which enables to load
 images from SVG files.
 https://github.com/poqudrof/processing
+
+
+### How to use ?
+
+Install it using rubygems :
+
+`gem install soby`
+
+Clone the repository and try out the examples in the example folder.
+For now the examples are for development only.
+
+Please remember this library is in its early development stage. It is
+not user friendly yet. 
