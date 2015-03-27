@@ -1,10 +1,9 @@
-
+require 'ostruct'
 require 'base64'
 
 class Presentation 
 
   include_package 'processing.core'
-
 
   include Soby 
     
@@ -19,6 +18,7 @@ class Presentation
     xml = app.loadXML(url)
     @pshape = PShapeSVG.new(xml)
     @svg = Nokogiri::XML(open(url)).children[1];
+
     @graphics = @app.g
     build_internal
 
@@ -33,6 +33,10 @@ class Presentation
     # Create the frames.. 
     @slides = {}
     @nb_slides = 0
+    @playing_videos = []
+
+    puts "Svg null, look for the error... !"  if @svg == nil
+    return if @svg == nil 
 
     load_frames
     load_videos
@@ -51,17 +55,21 @@ class Presentation
     @svg.children.each do |child| 
       
       next unless child.name =~ /frame/
-      
-      refid, id = create_slide(child)
+
+      ## ignore if it references nothing. 
+      attr = child.attributes
+      next if attr["refid"] == nil
+
+      slide = Slide.new(child)      
       
       # get the element associated with each slide...
-      @svg.search("[id=" + refid + "]").each do |elem|
+      @svg.search("[id=" + slide.refid + "]").each do |elem|
 
         case elem.name 
         when "rect", "image"
-          add_rect_or_image(elem, id, refid)
+          add_rect_or_image_frame(elem, slide)
         when "g" 
-          add_group(elem, id, refid)
+          add_group(elem, slide)
         else 
           puts "Slide type not supported ! "  + elem.name
         end # end case
@@ -69,18 +77,21 @@ class Presentation
     end # frame
   end
 
-  def create_slide(node)
-    sl = Slide.new(node)
-    refid = sl.refid
-    id = sl.title
-    @slides[sl.sequence] = sl
-    @slides[id] = sl
+  def add_slide(new_slide)
+
+    puts "Add slide, id " << new_slide.title << " numero " << new_slide.sequence
+    @slides[new_slide.sequence] = new_slide
+    @slides[new_slide.title] = new_slide
     @nb_slides = @nb_slides+1
-    [refid, id]
   end
 
 
-  def add_rect_or_image(element, id, refid)
+  def add_rect_or_image_frame(element, slide)
+    id = slide.title
+    refid = slide.refid
+
+    add_slide(slide) 
+
     # set the geometry &  transformation
     transform = get_global_transform element
     @slides[id].set_geometry(element, transform[0])        
@@ -98,8 +109,12 @@ class Presentation
   end
   
   
-  def add_group(group, id, refid) 
+  def add_group(group, slide) 
     
+    id = slide.title
+    refid = slide.refid
+    add_slide(slide) 
+
     # TODO: Find the bounding box of any  group..
     # TODO: Hide the whole group ?
     surf_max = 0
@@ -134,11 +149,10 @@ class Presentation
     if desc != nil 
       if title == nil || (title.text.match(/animation/) == nil and title.text.match(/video/) == nil)
         puts "Group Description read #{desc.text}" 
-
+        
         @slides[id].description =  desc.text
       end
     end
-
     
     e = @pshape.getChild(rect_id)
     # hide the rect
@@ -149,6 +163,7 @@ class Presentation
     end 
 
     puts "Slide #{id} created from a group, and the rectangle: #{rect_id}"
+
   end
 
 
@@ -157,9 +172,10 @@ class Presentation
   def load_videos
     # Load the videos...
     puts "Loading the videos..."
-    @playing_videos = []
 
     @svg.css("rect").each do |rect|
+
+      return if rect.attributes["id"] == nil
       id = rect.attributes["id"].value       #get the id 
 
       title = rect.css("title")

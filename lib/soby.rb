@@ -2,24 +2,15 @@
 
 require 'nokogiri'  # for XML.
 require 'ruby-processing' 
-require 'ostruct'
 require 'java' 
-java_import 'java.lang.System'
-
-
-# Give the current folder to Processing.
-Processing::App::SKETCH_PATH = __FILE__
 
 # For the other files, we need to load the libraries 
 Processing::App::load_library 'video', 'toxiclibscore'
 
-$:.unshift File.dirname(__FILE__)
-require 'Soby/transforms'
-require 'Soby/presentation'
-require 'Soby/slide'
-require 'Soby/cam' 
-
-
+require_relative 'transforms'
+require_relative 'presentation'
+require_relative 'slide'
+require_relative 'cam' 
 
 class SobyPlayer < Processing::App
 
@@ -56,8 +47,12 @@ class SobyPlayer < Processing::App
     @ready = false
     size 1024, 768, OPENGL
 
+## Some bugs with this. 
+## frame.setResizable true  if frame != nil 
+
     init_player
 
+    @custom_setup_done = true
     @ready = true
   end 
 
@@ -80,6 +75,7 @@ class SobyPlayer < Processing::App
     @prev_cam = Cam.new
     @next_cam = Cam.new
     @is_moving = false
+    @current_ratio = 0
   end
 
 
@@ -98,6 +94,12 @@ class SobyPlayer < Processing::App
 
 
   def draw 
+
+    if not @custom_setup_done 
+      custom_setup
+      @custom_setup_done = true
+    end
+
     custom_pre_draw
 
     smooth(8)
@@ -150,13 +152,17 @@ class SobyPlayer < Processing::App
     pop_matrix
   end
 
+  alias :default_display_slide_number :display_slide_number 
 
-  def key_pressed    
+
+  def key_pressed
 
     if key == 'g' 
       puts "Garbage"
-      System.gc 
+      Java::JavaLang::System.gc 
     end 
+
+    return if @prez == nil
 
     if keyCode == LEFT 
       prev_slide
@@ -203,7 +209,7 @@ class SobyPlayer < Processing::App
     puts @prez.width
     puts @prez.height
 
-    custom_setup
+    @custom_setup_done = false
   end
 
   def compute_view(view, slide_number)
@@ -222,13 +228,11 @@ class SobyPlayer < Processing::App
 
 
   def next_slide
-    puts "Next Slide " 
     is_last_slide = @current_slide_no >= @prez.nb_slides 
     is_slide_zero = current_slide_no == 0
 
     # Gloal view
     if is_slide_zero
-      puts "Go to slide " << (@current_slide_no + 1).to_s
       goto_slide(@current_slide_no + 1)
       return 
     end
@@ -239,7 +243,6 @@ class SobyPlayer < Processing::App
       anim = @slides[@current_slide_no].next_animation
       anim.pshape_elem.setVisible(true)
     else
-      puts "Go to slide " << (@current_slide_no + 1).to_s      
       goto_slide(@current_slide_no + 1) unless is_last_slide
     end
 
@@ -265,14 +268,11 @@ class SobyPlayer < Processing::App
 
   def goto_slide (next_slide)
 
-    if next_slide > @prez.slides.size 
-      puts "No more slides" 
-      return
-    end
-
     current_slide = @current_slide_no 
-    
-    cam = global_view if next_slide == 0
+
+    use_global_view =  next_slide == 0 || next_slide > @prez.slides.size 
+
+    cam = global_view if use_global_view
     cam = slide_view(next_slide)  if next_slide > 0   
 
     # previous next is now old. 
@@ -282,14 +282,21 @@ class SobyPlayer < Processing::App
 
     @current_slide_no = next_slide
 
-    if next_slide == 0
+    if use_global_view
       @transition_duration = TRANSITION_DURATION.to_f
     else
       @transition_duration = @slides[@current_slide_no].transition_duration_ms
     end
 
     @transition_start_time = millis
-    @is_moving = true
+    @is_moving = true  
+    @current_ratio = 0
+
+    ## trigger the slide_change function (user defined)
+    slide_change
+  end
+
+  def slide_change
 
   end
 
@@ -297,13 +304,14 @@ class SobyPlayer < Processing::App
   def update_cam 
 
     return unless @is_moving
+    return if @slides.size == 0
 
     elapsed_time = millis - @transition_start_time
-    v = elapsed_time.to_f / @transition_duration.to_f
+    @current_ratio = elapsed_time.to_f / @transition_duration.to_f
 
-    v = @slides[@current_slide_no].transition v unless @current_slide_no == 0
+    @current_ratio = @slides[@current_slide_no].transition @current_ratio unless @current_slide_no == 0
 
-    if v > 1  && @is_moving 
+    if @current_ratio > 1  && @is_moving 
       @is_moving = false
       @cam = @prev_cam.lerp(@next_cam, 1)
 
@@ -312,8 +320,8 @@ class SobyPlayer < Processing::App
       return
     end
 
-    #    puts v
-    @cam = @prev_cam.lerp(@next_cam, v)
+    #    puts @current_ratio
+    @cam = @prev_cam.lerp(@next_cam, @current_ratio)
 
   end  
 
@@ -323,7 +331,11 @@ class SobyPlayer < Processing::App
       puts "No more slides" 
       return
     end
-    
+
+    return if @prez.slides[slide_no] == nil 
+
+    puts "slide view..." << slide_no.to_s
+
     # check slide number
     w = @prez.slides[slide_no].width
     h = @prez.slides[slide_no].height

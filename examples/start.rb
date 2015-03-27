@@ -1,14 +1,19 @@
 require 'soby' 
 
+
+# Give the current folder to Processing.
+Processing::App::SKETCH_PATH = Dir.pwd
+
+
 @player = SobyPlayer.new 
 
 ## Presentation - relative elements
 
 
-file = "dessin.svg" 
-#require 'custom_background.rb' 
 
 if $app.ready? 
+  file = "dessin.svg" 
+  #require 'custom_background.rb' 
   @prez = Presentation.new($app, $app.sketchPath(file))
   $app.set_prez @prez 
 end 

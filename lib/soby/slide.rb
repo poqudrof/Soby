@@ -10,15 +10,13 @@ class Slide
 
   def initialize (element)
 
-    ## TODO: assert ?
-    return if element == nil 
-
     attr = element.attributes
 
     ## Zoom & Path -> not used...
     # @transition_path_hide = attr["transition-path-hide"].value
     # @transition_zoom_percent = attr["transition-zoom-percent"].value
-    #Not always set !
+
+    #Not always set ! We use the title instead
     #    @id = attr["id"].value
 
     @transition_profile = attr["transition-profile"].value
