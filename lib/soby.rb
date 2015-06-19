@@ -4,13 +4,16 @@ require 'nokogiri'  # for XML.
 require 'ruby-processing' 
 require 'java' 
 
+Processing::Runner
+Dir["#{Processing::RP_CONFIG['PROCESSING_ROOT']}/core/library/\*.jar"].each{ |jar| require jar }
+
 # For the other files, we need to load the libraries 
 Processing::App::load_library 'video', 'toxiclibscore'
 
-require_relative 'transforms'
-require_relative 'presentation'
-require_relative 'slide'
-require_relative 'cam' 
+require_relative 'soby/transforms'
+require_relative 'soby/presentation'
+require_relative 'soby/slide'
+require_relative 'soby/cam' 
 
 class SobyPlayer < Processing::App
 
@@ -30,6 +33,12 @@ class SobyPlayer < Processing::App
 
   TRANSITION_DURATION = 1000
 
+  def initialize(w, h)
+    @w = w
+    @h = h
+    super()
+  end
+  
   # no Border  
   def init 
     super
@@ -45,7 +54,7 @@ class SobyPlayer < Processing::App
 
   def setup 
     @ready = false
-    size 1024, 768, OPENGL
+    size @w, @h, OPENGL
 
 ## Some bugs with this. 
 ## frame.setResizable true  if frame != nil 
@@ -198,10 +207,15 @@ class SobyPlayer < Processing::App
 
 
   def set_prez (prez)
+
+    current_slide = @current_slide_no
+    
     #    PShape.loadedImages.clear 
     @prez = prez
     @slides = prez.slides
-    goto_slide 0
+
+    goto_slide current_slide
+
     @is_running = true
     @prez_middle = PVector.new(@prez.width / 2.0, @prez.height / 2.0)
 
