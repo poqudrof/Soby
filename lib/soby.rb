@@ -13,7 +13,8 @@ Processing::App::load_library 'video', 'toxiclibscore'
 require_relative 'soby/transforms'
 require_relative 'soby/presentation'
 require_relative 'soby/slide'
-require_relative 'soby/cam' 
+require_relative 'soby/cam'
+require_relative 'soby/launcher' 
 
 class SobyPlayer < Processing::App
 
@@ -27,7 +28,6 @@ class SobyPlayer < Processing::App
 
 #  attr_accessor :background_max_color, :background_min_color, :background_constrain
   attr_accessor :cam
-
   
   def running? () @is_running  end
 
@@ -56,8 +56,8 @@ class SobyPlayer < Processing::App
     @ready = false
     size @w, @h, OPENGL
 
-## Some bugs with this. 
-## frame.setResizable true  if frame != nil 
+    ## Some bugs with this. 
+    frame.setResizable true  if frame != nil 
 
     init_player
 
@@ -321,11 +321,11 @@ class SobyPlayer < Processing::App
     return if @slides.size == 0
 
     elapsed_time = millis - @transition_start_time
-    @current_ratio = elapsed_time.to_f / @transition_duration.to_f
+    @current_time_ratio = elapsed_time.to_f / @transition_duration.to_f
 
-    @current_ratio = @slides[@current_slide_no].transition @current_ratio unless @current_slide_no == 0
+    @current_ratio = @slides[@current_slide_no].transition @current_time_ratio unless @current_slide_no == 0
 
-    if @current_ratio > 1  && @is_moving 
+    if (@current_ratio > 1 || @current_time_ratio > 1) && @is_moving
       @is_moving = false
       @cam = @prev_cam.lerp(@next_cam, 1)
 

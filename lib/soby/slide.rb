@@ -52,19 +52,19 @@ class Slide
     when "strong-accelerate"
       @transition = Proc.new { |x| x**5 } 
     when "decelerate" 
-      @transition = Proc.new { |x| 1 - Math.pow(1 - x, 3) } 
+      @transition = Proc.new { |x| 1 - ((1 - x) ** 3) } 
     when "strong-decelerate" 
-      @transition = Proc.new { |x| 1 - Math.pow(1 - x, 5) } 
+      @transition = Proc.new { |x| 1 - ((1 - x) ** 5) } 
     when "accelerate-decelerate" 
       @transition = Proc.new { |x|   
         xs = x <= 0.5 ? x : 1 - x
-        y = Math.pow(2 * xs, 3) / 2
+        y = ((2 * xs) ** 3) / 2
         x <= 0.5 ? y : 1 - y
       }
     when "strong-decelerate-accelerate"
       @transition = Proc.new { |x| 
         xs = x <= 0.5 ? x : 1 - x
-        y = Math.pow(2 * xs, 5) / 2
+        y = ((2 * xs) **  5) / 2
         x <= 0.5 ? y : 1 - y 
       }
     when  "immediate-beginning"

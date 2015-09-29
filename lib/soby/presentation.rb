@@ -9,19 +9,29 @@ class Presentation
     
   attr_accessor :geometry, :slides, :pshape, :svg, :transform
   attr_accessor :width, :height, :matrix, :videos
-  attr_reader  :nb_slides, :debug
+  attr_reader  :nb_slides, :debug, :program, :url
 
   attr_accessor :graphics
 
-  def initialize (app, url)
+  def initialize (app, url, program)
     @app = app
-    xml = app.loadXML(url)
-    @pshape = PShapeSVG.new(xml)
-    @svg = Nokogiri::XML(open(url)).children[1];
-
+    @url = url
+    @program = program
     @graphics = @app.g
-    build_internal
 
+    load_files
+    build_internal
+  end
+
+  def load_files
+    xml = @app.loadXML(@url)
+    @pshape = PShapeSVG.new(xml)
+    @svg = Nokogiri::XML(open(@url)).children[1];
+  end
+  
+  def reset
+    load_files
+    build_internal
   end
 
   def width ; @pshape.getWidth; end
