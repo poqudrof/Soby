@@ -297,7 +297,7 @@ class Presentation
           puts "Saving memory. "
           my_video.video.stop
           my_video.video = nil 
-          System.gc
+          Java::JavaLang::System.gc
         end
         @playing_videos =  []
       end 
