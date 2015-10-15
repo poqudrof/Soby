@@ -1,6 +1,5 @@
 require_relative '../lib/soby'
 
-
 # Give the current folder to Processing.
 # Processing::App::SKETCH_PATH = Dir.pwd
 
@@ -13,7 +12,7 @@ $app =  SobyPlayer.new 1920,1080
 
 sleep 0.2 while not $app.ready?
 
-presentation = Soby::load_presentation 'custom_background.rb', 'dessin.svg'
+presentation = Soby::load_presentation 'custom_background.rb', 'videoTest.svg'
 Soby::auto_update presentation, __FILE__
 
 
