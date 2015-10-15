@@ -1,4 +1,5 @@
 Soby :
+[![Gem Version](https://badge.fury.io/rb/soby.svg)](https://badge.fury.io/rb/soby)
 
 Another crazy idea :
 
