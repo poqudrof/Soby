@@ -16,7 +16,6 @@ presentation = Soby::load_presentation 'custom_background.rb', 'videoTest.svg'
 Soby::auto_update presentation, __FILE__
 
 
-
 # #$app.background_min
 # $app.background_amplitude 5, 15
 # $app.background_min 10
