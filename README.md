@@ -45,7 +45,6 @@ https://github.com/poqudrof/processing/releases/tag/3.0-svg
  6. Try out an example: `cd Soby/examples/video ; jruby start.rb`  . 
 
 
-
 Please remember this library is in its early development stage.
 
 ### How to use (Windows & Mac) 
