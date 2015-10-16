@@ -1,53 +1,23 @@
 
+## Examples 
 
-# Tags :
+# background 
 
-In the title :
+Background image loaded from Processing. Some text is displayed at the bottom of the presentation, 
+this text is changed within the slides. 
 
-### code
+# generative_background 
 
-Will interpret the code of the description. 
-The code is interpreted during the draw, more precisely, the draw order is : 
+The background is computed and changed in Processing code. It consists of small squares that 
+randomly change their colors. The slides call functions to control the behaviour of the background. 
 
-1. custom_pre_draw 
-2. draw the SVG
-3. draw the videos
-4. draw slide code 
-5. display_slide_number 
-6. custom_post_draw
+# multi-presentation
 
-### animation 
+The presentation is divided in two SVG files using the same script. It could also use two different 
+script. 
 
-Description : 
+# Video 
 
-* slideID
-* number 
-
-
-Here is an example use. 
-* Create a Frame with the Title "marker" in Sozi.
-
-(first animation)
-* marker
-* 0
-
-(second animation)
-* marker
-* 1 
-
-
-### Video
-
-Description : 
-
-* slideID
-* videoFilePath
-
-
-Here is an example use. 
-* Create a Frame with the Title "Video 1" in Sozi.
-
-Create a rect with a title : "video" and this description
-* Video 1
-* data/dragon.MP4
+Load and display a video automatically using the Video library from Processing. 
+ 
 
