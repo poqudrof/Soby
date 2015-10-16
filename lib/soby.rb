@@ -112,8 +112,6 @@ class SobyPlayer < Processing::App
 
     custom_pre_draw
 
-    smooth(8)
-
     shapeMode(CORNER)
     imageMode(CORNER)
 
