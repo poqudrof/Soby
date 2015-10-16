@@ -11,7 +11,7 @@ Presentation software based on SVG created by Sozi.
 * Presentation softwares are limited, and creating animations is
   awfully difficult.
 * [Processing](http://processing.org) is awesome.
-* [JRuby_art](https://github.com/jashkenas/ruby-processing) is
+* [JRubyArt](https://github.com/ruby-processing/JRubyArt) is
   super-awesome, because it is Processing and it can be live and
   interpreted.
 
