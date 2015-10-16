@@ -57,6 +57,7 @@ Follow the same steps as in Linux. You should Hack your processing version with 
 
 With standard Processing it will work, without text and images which is less interesting.
 
-Example of a presentation done with Soby:
+Example of a presentation done with Soby (and [Skatolo](https://github.com/potioc/Skatolo)):
 
+watch at:  2:40  and 4:20  
 https://www.youtube.com/watch?v=QhaNQqVbpCQ&index=5&list=PL9T8000j7sJDcOoHA8r18561F3jDXZASN
