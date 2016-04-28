@@ -13,4 +13,5 @@ sleep 0.2 while not $app.ready?
 
 presentation = Soby::load_presentation 'background.rb', 'presentation.svg'
 
-Soby::auto_update presentation, __FILE__
+# Soby::auto_update presentation, __FILE__
+Soby::start_presentation presentation

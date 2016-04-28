@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'nokogiri'  # for XML.
 require 'jruby_art'
 require 'jruby_art/app'
 
@@ -13,6 +12,7 @@ require 'java'
 Processing::App::load_library 'video', 'toxiclibscore'
 
 require_relative 'soby/transforms'
+require_relative 'soby/loader'
 require_relative 'soby/presentation'
 require_relative 'soby/slide'
 require_relative 'soby/cam'
@@ -44,13 +44,10 @@ class SobyPlayer < Processing::App
   # no Border
   def init
     super
-    removeFrameBorder
-  end
 
-  def removeFrameBorder
-    frame.removeNotify
-    frame.setUndecorated true
-    frame.addNotify
+    getSurface.getNative.setUndecorated true
+
+
   end
 
   def settings
@@ -250,14 +247,22 @@ class SobyPlayer < Processing::App
       return
     end
 
+    if @slides[@current_slide_no] == nil
+      p "ERROR invalid slide"
+      p "Try to go to next slide"
+      goto_slide(@current_slide_no + 1) unless is_last_slide
+      return
+    end
+
     # animation
     if @slides[@current_slide_no].has_next_animation?
       puts "Animation Next "
       anim = @slides[@current_slide_no].next_animation
       anim.pshape_elem.setVisible(true)
-    else
-      goto_slide(@current_slide_no + 1) unless is_last_slide
+      return
     end
+
+    goto_slide(@current_slide_no + 1) unless is_last_slide
 
   end
 

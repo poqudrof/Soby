@@ -1,39 +1,39 @@
-
 module Soby
 
   SLEEP_TIME = 1
 
   ## used outside
-  
+
   def Soby.load_presentation (program_name, svg_name)
     puts "Loading program"
     load program_name
     puts "Loading prez"
-    Presentation.new($app, $app.sketchPath(svg_name), program_name)
+    (PresentationLoader.new($app, $app.sketchPath(svg_name), program_name)).presentation
+
   end
 
   def Soby.auto_update (presentation, file_not_updated)
-    
-    if $app != nil 
-      
+
+    if $app != nil
+
       files = find_files_except file_not_updated
       start_presentation presentation
 
       program_name = presentation.program
       svg_name = presentation.url
-      
-      time = Time.now 
-      
+
+      time = Time.now
+
       t = Thread.new {
         loop do
 
           if files.find { |file| FileTest.exist?(file) && File.stat(file).mtime > time }
             puts 'reloading sketch...'
-            
+
             time = Time.now
 
             load program_name
-            presentation = Presentation.new($app, $app.sketchPath(svg_name), program_name)
+            presentation = (PresentationLoader.new($app, $app.sketchPath(svg_name), program_name)).presentation
             start_presentation presentation
           end
 
@@ -43,10 +43,10 @@ module Soby
       }
     end
   end
-  
+
 
  ## local use
-  
+
   def Soby.reload_presentation (presentation)
 #    load presentation.program
 #    presentation.reset
@@ -54,7 +54,7 @@ module Soby
   end
 
   def Soby.start_presentation (presentation)
-    $app.set_prez presentation  
+    $app.set_prez presentation
   end
 
   def Soby.find_files_except (name)
@@ -64,7 +64,7 @@ module Soby
   def Soby.find_files
     Dir.glob(File.join(SKETCH_ROOT, "**/*.{svg,glsl,rb}"))
   end
-  
 
-  
+
+
 end
