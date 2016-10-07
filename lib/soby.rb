@@ -2,10 +2,11 @@
 
 require 'jruby_art'
 require 'jruby_art/app'
-
-
 require 'java'
 
+## Enables objects to become java for introspection in java.
+
+require 'jruby/core_ext'
 # Processing::App::SKETCH_PATH = Dir.pwd
 
 # For the other files, we need to load the libraries
@@ -18,6 +19,7 @@ require_relative 'soby/slide'
 require_relative 'soby/cam'
 require_relative 'soby/launcher'
 
+
 class SobyPlayer < Processing::App
 
   include_package 'processing.core'
@@ -28,39 +30,42 @@ class SobyPlayer < Processing::App
   attr_accessor :prez, :prev_cam, :next_cam, :slides
   attr_reader :is_moving, :current_slide_no
 
-#  attr_accessor :background_max_color, :background_min_color, :background_constrain
+  attr_reader :has_thread
+  attr_accessor :thread
+  #  attr_accessor :background_max_color, :background_min_color, :background_constrain
   attr_accessor :cam
 
   def running? () @is_running  end
 
   TRANSITION_DURATION = 1000
 
-  def initialize(w, h)
-    @w = w
-    @h = h
+  def initialize(screen_id)
+    @screen_id = screen_id
     super()
   end
+
 
   # no Border
   def init
     super
-
     getSurface.getNative.setUndecorated true
-
-
   end
 
   def settings
-    size @w, @h, P3D
+    # todo: fullscreen ?
+    fullScreen P3D, @screen_id
   end
 
   def setup
     @ready = false
 
+    @width = self.width
+    @height = self.height
     init_player
 
     @custom_setup_done = true
     @ready = true
+    @has_thread = false
   end
 
   def ready?
@@ -99,9 +104,8 @@ class SobyPlayer < Processing::App
 
   end
 
-
   def draw
-
+    rect 0, 0, 100, millis / 1000
     if not @custom_setup_done
       custom_setup
       @custom_setup_done = true
@@ -177,8 +181,45 @@ class SobyPlayer < Processing::App
       next_slide
     end
 
+    if key == 'l'
+      # selectInput("Select a file to process:",
+      #             "fileSelected",
+      #             Java::JavaIo::File.new(SKETCH_ROOT))
+
+      folder = Java::JavaIo::File.new(SKETCH_ROOT)
+      fc = Java::javax::swing::JFileChooser.new("Soby Loader")
+      fc.set_dialog_title "Select your presentation"
+      fc.setFileFilter AppFilter.new
+      fc.setCurrentDirectory folder
+      success = fc.show_open_dialog(nil)
+      if success == Java::javax::swing::JFileChooser::APPROVE_OPTION
+        path = fc.get_selected_file.get_absolute_path
+        puts "User selected " + path
+        presentation = Soby::load_presentation path
+        Soby::start_presentation presentation
+      else
+        puts "No file"
+      end
+    end
+
+    if key == 'a'
+      return if @has_thread
+      puts "Thread starting"
+      Soby::auto_update self
+      @has_thread = true
+    end
+
+    if key == 's'
+      Thread::kill @thread if @has_thread
+    end
     #    puts "slide #{@current_slide_no} "
   end
+
+  java_signature 'void fileSelected(java.io.File)'
+  def fileSelected selection
+  end
+
+
 
   def mouse_dragged
     if not @is_moving
@@ -203,7 +244,6 @@ class SobyPlayer < Processing::App
 
 
   def set_prez (prez)
-
     current_slide = @current_slide_no
 
     #    PShape.loadedImages.clear
@@ -415,5 +455,18 @@ class SobyPlayer < Processing::App
   end
   private :find_scale
 
+end
 
+## Allow for java introspection
+SobyPlayer.become_java!
+
+## TODO: move this somewhere
+class AppFilter < Java::javax::swing::filechooser::FileFilter
+  def accept fobj
+    return true if fobj.canExecute
+    return fobj.isDirectory
+  end
+  def getDescription
+    "Applications"
+  end
 end

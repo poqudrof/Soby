@@ -7,23 +7,24 @@ class Presentation
 
   include Soby
 
-  attr_accessor :slides, :pshape, :svg
+  attr_accessor :slides, :pshape
   attr_accessor :width, :height, :matrix, :videos
-  attr_reader  :nb_slides, :debug, :program, :url
+  attr_reader  :nb_slides, :debug
+  attr_reader :source_files
+  attr_accessor :url
 
   attr_accessor :graphics
 
-  def initialize (app, program)
+  def initialize (app)
     @app = app
-    @program = program
     @graphics = @app.g
-
     @slides = {}
     @nb_slides = 0
     @playing_videos = []
-
+    @source_files = []
   end
 
+  def add_source name ; @source_files << name ;  end
   def width ; @pshape.getWidth; end
   def height ; @pshape.getHeight; end
 

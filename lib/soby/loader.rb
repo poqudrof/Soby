@@ -1,5 +1,6 @@
 require 'ostruct'
 require 'base64'
+require 'rubygems'
 require 'nokogiri'  # for XML.
 
 class PresentationLoader
@@ -13,11 +14,12 @@ class PresentationLoader
 
   attr_accessor :graphics
 
-  def initialize (app, url, program)
+  def initialize (app, url)
     @app = app
     @url = url
 
-    @presentation = Presentation.new(app, program)
+    @presentation = Presentation.new(app)
+    @presentation.url = @url
     load_files
     build_internal
   end
@@ -33,9 +35,46 @@ class PresentationLoader
     puts "Svg null, look for the error... !"  if @svg == nil
     return if @svg == nil
 
+    load_code
     load_frames
     load_videos
     load_animations
+  end
+
+  def load_code
+    puts "Loading the code..."
+
+    @svg.css("text").each do |text|
+
+      return if text.attributes["id"] == nil
+      id = text.attributes["id"].value       #get the id
+
+      title = text.css("title")
+      next if title == nil
+
+      is_code = title.text.match(/code/) != nil
+      next unless is_code
+
+      files = text.css("desc").text.split("\n")
+
+      if files == nil
+        puts "Source not found, check your includes in svg"
+        next
+      end
+
+      files.each do |file|
+
+        dir = File.dirname(@url)
+        abs_file = dir + "/" + file
+        puts ("Loading the code: " + abs_file)
+        @presentation.add_source abs_file
+        load abs_file
+      end
+
+      ## Hide the text to the rendering
+      @pshape.getChild(id).setVisible(false)
+    end
+
   end
 
   def load_frames
