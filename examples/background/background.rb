@@ -4,8 +4,8 @@ class SobyPlayer
 
   ## To be overriden by the Presentation Code.
   def custom_setup
-    @background_image = loadImage sketchPath + "/data/abstract-bubbles.jpg"
-    @font = loadFont sketchPath + "/data/LinLibertine-30.vlw"
+    @background_image = loadImage presentationPath + "/data/abstract-bubbles.jpg"
+    @font = loadFont presentationPath + "/data/LinLibertine-30.vlw"
 
     @footer = "Monday, April 1st. -- Important Talk about pranks."
 

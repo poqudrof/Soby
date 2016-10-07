@@ -24,15 +24,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.49497475"
-     inkscape:cx="1354.1502"
-     inkscape:cy="588.96034"
+     inkscape:cx="781.39371"
+     inkscape:cy="576.83851"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1785"
-     inkscape:window-height="902"
-     inkscape:window-x="1976"
-     inkscape:window-y="178"
+     inkscape:window-width="1366"
+     inkscape:window-height="730"
+     inkscape:window-x="0"
+     inkscape:window-y="20"
      inkscape:window-maximized="0" />
   <defs
      id="defs4" />
@@ -90,8 +90,8 @@
        id="rect4163-7"
        width="612.15247"
        height="369.71582"
-       x="875.80225"
-       y="366.4686">
+       x="861.6601"
+       y="370.50922">
       <desc
          id="desc4824">remove_gui if @has_gui</desc>
       <title
@@ -131,6 +131,19 @@
          id="tspan4167-2-1"
          x="1761.7059"
          y="413.94577">Third frame</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="317.1879"
+       y="114.94063"
+       id="text4151"
+       sodipodi:linespacing="125%"><desc
+         id="desc4157">gui.rb</desc><title
+         id="title4155">code</title><tspan
+         sodipodi:role="line"
+         id="tspan4153"
+         x="317.1879"
+         y="114.94063">gui.rb</tspan></text>
   </g>
   <script
      id="sozi-script"

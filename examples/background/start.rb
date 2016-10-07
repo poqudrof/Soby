@@ -7,7 +7,7 @@ $:.unshift File.dirname(__FILE__)
 
 
 Processing::PShapeSVG.TEXT_QUALITY = 2.0
-$app =  SobyPlayer.new 1920,1080
+$app =  SobyPlayer.new 1366, 768
 
 sleep 0.2 while not $app.ready?
 

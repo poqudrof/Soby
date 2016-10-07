@@ -161,6 +161,10 @@ class SobyPlayer < Processing::App
     pop_matrix
   end
 
+  def presentationPath
+    File.dirname(@prez.url)
+  end
+
   alias :default_display_slide_number :display_slide_number
 
 
