@@ -161,7 +161,7 @@ class SobyPlayer < Processing::App
     pop_matrix
   end
 
-  def presentationPath
+  def presentation_path
     File.dirname(@prez.url)
   end
 
