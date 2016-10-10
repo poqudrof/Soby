@@ -27,12 +27,6 @@ So it is :
 
 Animations are supported.
 
-#### Issues
-
-It requires a specific version of Processing which enables to load
-images from SVG files : 
-https://github.com/poqudrof/processing/releases/tag/3.0-svg
-
 
 ### How to use ?  (linux) 
 
