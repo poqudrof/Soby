@@ -2,7 +2,6 @@ Soby :
 
 [![Gem Version](https://badge.fury.io/rb/soby.svg)](https://badge.fury.io/rb/soby)
 
-
 Presentation software based on SVG created by Sozi.
 
 ### Concept :
@@ -37,15 +36,16 @@ https://github.com/poqudrof/processing/releases/tag/3.0-svg
 
 ### How to use ?  (linux) 
 
- 1. Install our custom version of Processing : https://github.com/poqudrof/processing/releases/download/3.0-svg/processing-svg.tar.gz
+ 1. Install the latest [custom version](https://github.com/poqudrof/processing/releases) of Processing.  
  2. Install the [processing Video library](https://github.com/processing/processing-video) and GStreamer if you are on linux. 
- 3. Install Jruby Art, follow the instructions there : [https://github.com/ruby-processing/JRubyArt]
+ 3. Install Jruby Art, follow the [instructions](https://github.com/ruby-processing/JRubyArt)
  4. Install Soby using rubygems : `gem install soby`
  5. Clone the repository.
- 6. Try out an example: `cd Soby/examples/video ; jruby start.rb`  . 
+ 6. Try out an example: `cd Soby/examples/video ; soby presentation.svg`  . 
 
+Soby can have up to two arguments, the first one is the presentation to load, the second is optional is the screen on which to run the presentation.
+Please remember this program is in its early development stage.
 
-Please remember this library is in its early development stage.
 
 ### How to use (Windows & Mac) 
 
@@ -56,6 +56,7 @@ Follow the same steps as in Linux. You should Hack your processing version with 
 
 With standard Processing it will work, without text and images which is less interesting.
 
+## Example
 Example of a presentation done with Soby (and [Skatolo](https://github.com/potioc/Skatolo)):
 
 watch at:  2:40  and 4:20  
