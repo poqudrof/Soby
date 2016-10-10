@@ -24,15 +24,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.49497475"
-     inkscape:cx="1194.5461"
+     inkscape:cx="856.145"
      inkscape:cy="465.72173"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1488"
-     inkscape:window-height="880"
-     inkscape:window-x="2039"
-     inkscape:window-y="167"
+     inkscape:window-width="1366"
+     inkscape:window-height="730"
+     inkscape:window-x="0"
+     inkscape:window-y="20"
      inkscape:window-maximized="0" />
   <defs
      id="defs4" />
@@ -125,6 +125,19 @@ set_prez @presentation2
          x="1658.6705"
          id="tspan4196"
          sodipodi:role="line">Next</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="462.64987"
+       y="286.66656"
+       id="text4148"
+       sodipodi:linespacing="125%"><desc
+         id="desc4154">switch.rb</desc><title
+         id="title4152">code</title><tspan
+         sodipodi:role="line"
+         id="tspan4150"
+         x="462.64987"
+         y="286.66656">switch.rb</tspan></text>
   </g>
   <script
      id="sozi-script"

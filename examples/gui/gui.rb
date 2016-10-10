@@ -1,7 +1,5 @@
 ## re-open the class
-
-require_relative 'skatolo'
-
+require 'skatolo'
 
 class SobyPlayer
 
