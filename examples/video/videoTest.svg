@@ -98,7 +98,7 @@ data/dragon.MP4</desc>
   </g>
   <script
      id="sozi-script"
-     ns1:version="15.06-19152728">/*
+     ns1:version="13.11-30213629">/*
  * Sozi - A presentation tool using the SVG standard
  *
  * Copyright (C) 2010-2013 Guillaume Savaton
@@ -2798,7 +2798,7 @@ namespace(this, &quot;sozi.player&quot;, function (exports, window) {
 </script>
   <style
      id="sozi-style"
-     ns1:version="15.06-19152728">/*
+     ns1:version="13.11-30213629">/*
  * Sozi - A presentation tool using the SVG standard
  *
  * Copyright (C) 2010-2013 Guillaume Savaton
