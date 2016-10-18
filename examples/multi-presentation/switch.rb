@@ -5,7 +5,7 @@ class SobyPlayer
 
   def custom_setup
     @presentation1 = @prez
-    path = sketchPath + "/presentation2.svg"
+    path = presentation_path + "/presentation2.svg"
     @presentation2 = Soby::load_presentation path
   end
 
