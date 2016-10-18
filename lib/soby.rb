@@ -157,6 +157,11 @@ class SobyPlayer < Processing::App
     fill(255)
     noStroke
     textSize(20)
+    if @current_slide_no < 10
+      translate 2, 0
+    else
+      translate -3.5, 0
+    end 
     text(@current_slide_no.to_s, 10, 30)
     pop_matrix
   end
@@ -212,7 +217,13 @@ class SobyPlayer < Processing::App
       Soby::auto_update self
       @has_thread = true
     end
-
+    
+    if key == 'c'
+      @frame_number = 1 if @frame_number == nil
+      saveFrame "frame-" + @frame_number.to_s + ".png"
+      @frame_number = @frame_number + 1
+    end
+    
     if key == 's'
       Thread::kill @thread if @has_thread
     end
