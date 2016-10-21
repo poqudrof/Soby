@@ -10,7 +10,7 @@ require 'jruby/core_ext'
 # Processing::App::SKETCH_PATH = Dir.pwd
 
 # For the other files, we need to load the libraries
-Processing::App::load_library 'video', 'toxiclibscore'
+Processing::App::load_library 'video', 'toxiclibscore', 'SVGExtended'
 
 require_relative 'soby/transforms'
 require_relative 'soby/loader'

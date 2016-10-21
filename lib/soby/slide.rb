@@ -100,7 +100,7 @@ class Slide
 
   def next_animation 
     @current_animation = @current_animation + 1
-    @animations[@current_animation -1]
+    @animations[@current_animation - 1]
   end
 
   def has_previous_animation?() 

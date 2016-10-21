@@ -6,6 +6,7 @@ require 'nokogiri'  # for XML.
 class PresentationLoader
 
   include_package 'processing.core'
+  include_package 'tech.lity.rea.SVGExtended'
 
   include Soby
 
@@ -26,7 +27,9 @@ class PresentationLoader
 
   def load_files
     xml = @app.loadXML(@url)
-    @pshape = PShapeSVG.new(xml)
+    @pshape = Java::TechLityReaSvgextended::PShapeSVGExtended.new(xml)
+
+#      PShapeSVGExtended.new(xml)
     @presentation.pshape = @pshape
     @svg = Nokogiri::XML(open(@url)).children[1];
   end

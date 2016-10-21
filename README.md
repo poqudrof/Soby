@@ -14,7 +14,6 @@ Presentation software based on SVG created by Sozi.
   super-awesome, because it is Processing and it can be live and
   interpreted.
 
-
 The slides can contain anything than can be displayed in our [extended
 version of Processing](https://github.com/poqudrof/processing/releases/tag/3.0-svg).
 
@@ -27,7 +26,6 @@ So it is :
 
 Animations are supported.
 
-
 It is based on Sozi on a [unmaintained version](https://github.com/senshu/Sozi/releases/tag/13.11). :
 
 
@@ -35,6 +33,7 @@ It is based on Sozi on a [unmaintained version](https://github.com/senshu/Sozi/r
 
  1. Install the latest [custom version](https://github.com/poqudrof/processing/releases) of Processing.  
  2. Install the [processing Video library](https://github.com/processing/processing-video) and GStreamer if you are on linux. 
+ 2. Install the library: [extended SVG support for processing](https://github.com/poqudrof/SVGExtended)
  3. Install Jruby Art, follow the [instructions](https://github.com/ruby-processing/JRubyArt)
  4. Install Soby using rubygems : `gem install soby`
  5. Clone the repository.
@@ -46,14 +45,12 @@ Please remember this program is in its early development stage.
 
 ### How to use (Windows & Mac)
 
-Follow the same steps as in Linux. You should Hack your processing version with the one given here.
-
->To Hack it replace:
-> `yourProcessing/core/library/core.jar` by our `processing-svg/core/library/core.jar` .
-
-With standard Processing it will work, without text and images which is less interesting.
+Follow the same steps as in Linux. I will post instructions once I start doing ruby and JrubyARt on Windows. 
 
 ## Example
+
+New example coming soon. 
+
 Example of a presentation done with Soby (and [Skatolo](https://github.com/potioc/Skatolo)):
 
 watch at:  2:40  and 4:20

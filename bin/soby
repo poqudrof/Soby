@@ -14,7 +14,11 @@ if ARGV[1] != nil
    screen_id = ARGV[1].to_i
 end
 
-Processing::PShapeSVG.TEXT_QUALITY = 2.0
+require 'java'
+
+
+Java::TechLityReaSvgextended::PShapeSVGExtended.TEXT_QUALITY = 2.0
+
 $app =  SobyPlayer.new screen_id
 
 sleep 0.2 while not $app.ready?
