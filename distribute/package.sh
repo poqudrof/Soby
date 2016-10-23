@@ -22,8 +22,12 @@ cp ../bin/soby-bin.rb src/
 # rawr install
 
 # # build jar
-# rake rawr:jar
+rake rawr:jar
 # # build exe
-# rake rawr:bundle:exe
+rake rawr:bundle:exe
 # # build app
-# rake rawr:bundle:app
+rake rawr:bundle:app
+
+zip -r soby-windows.zip package/windows
+zip -r soby-osx.zip package/osx
+tar -cvf soby.tar package/jar 
