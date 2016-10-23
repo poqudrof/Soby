@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 mkdir -p src
 
 # Depedencies
@@ -9,6 +10,20 @@ cp -R  ../lib/java* lib/
 cp -R  ../lib/soby.rb src/
 cp -R  ../lib/soby src/
 
-# Binary
-cp ../bin/soby-bin src/
+rm lib/java/*.sh
+rm lib/java/*.txt
+rm -rf lib/java/tmp
 
+# Binary
+cp ../bin/soby-bin.rb src/
+
+
+# # Rawr
+# rawr install
+
+# # build jar
+# rake rawr:jar
+# # build exe
+# rake rawr:bundle:exe
+# # build app
+# rake rawr:bundle:app
