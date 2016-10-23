@@ -3,9 +3,6 @@
 require_relative '../lib/soby'
 # require 'soby'
 
-puts ARGV[0]
-puts ARGV[1]
-
 require 'java'
 Java::TechLityReaSvgextended::PShapeSVGExtended.TEXT_QUALITY = 2.0
 
