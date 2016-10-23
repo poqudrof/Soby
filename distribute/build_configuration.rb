@@ -73,7 +73,7 @@ configuration do |c|
 	# Undocumented option 'jvm_arguments'
 	# default value: ""
 	#
-	c.jvm_arguments = "-server"
+	c.jvm_arguments = ""
 
 	# Undocumented option 'java_library_path'
 	# default value: ""
