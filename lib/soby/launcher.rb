@@ -3,7 +3,6 @@ module Soby
   SLEEP_TIME = 5
 
   ## used outside
-
   # def Soby.load_presentation (program_name, svg_name)
   #   puts "Loading program"
   #   load program_name
@@ -12,12 +11,10 @@ module Soby
   # end
 
   def Soby.load_presentation(svg_name)
-    PresentationLoader.new($app, $app.sketchPath(svg_name)).presentation
+    PresentationLoader.new($app, Dir.pwd + "/" + svg_name).presentation
   end
 
-
   def Soby.auto_update soby_player
-
     puts "Sketch Root" + SKETCH_ROOT
     files = find_files
     svg_name = soby_player.prez.url

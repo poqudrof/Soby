@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
 
-require 'jruby_art'
-require 'jruby_art/app'
-require 'java'
+require 'propane'
 
 ## Enables objects to become java for introspection in java.
-
 require 'jruby/core_ext'
-# Processing::App::SKETCH_PATH = Dir.pwd
 
+## Require the libraries
+Dir[__dir__ + "/java/*.jar"].each do
+  |jar| puts jar
+  require jar
+end
 # For the other files, we need to load the libraries
-Processing::App::load_library 'video', 'toxiclibscore', 'SVGExtended'
+
+## Libraries located in  ../lib/java/
+# processing dependencies 'video', 'toxiclibscore', 'SVGExtended'
 
 require_relative 'soby/transforms'
 require_relative 'soby/loader'
@@ -19,13 +22,12 @@ require_relative 'soby/slide'
 require_relative 'soby/cam'
 require_relative 'soby/launcher'
 
-
-class SobyPlayer < Processing::App
+class SobyPlayer < Propane::App
 
   include_package 'processing.core'
   include_package 'toxi.geom'
 
-  import 'toxi.geom.Matrix4x4'
+  java_import 'toxi.geom.Matrix4x4'
 
   attr_accessor :prez, :prev_cam, :next_cam, :slides
   attr_reader :is_moving, :current_slide_no

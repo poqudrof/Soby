@@ -52,7 +52,7 @@ class Presentation
       if slide_no > 0 and  @slides[slide_no].has_videos?
 
         # draw the object
-        @graphics.imageMode(Processing::App::CORNER)
+        @graphics.imageMode(Propane::App::CORNER)
 
         @slides[slide_no].videos.each do |my_video|
           @graphics.push_matrix

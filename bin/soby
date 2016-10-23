@@ -3,8 +3,14 @@
 require_relative '../lib/soby'
 # require 'soby'
 
-Processing::App::SKETCH_PATH = __FILE__
-$:.unshift File.dirname(__FILE__)
+puts ARGV[0]
+puts ARGV[1]
+
+require 'java'
+Java::TechLityReaSvgextended::PShapeSVGExtended.TEXT_QUALITY = 2.0
+
+# Propane::App::SKETCH_PATH = __FILE__
+# $:.unshift File.dirname(__FILE__)
 
 filename = nil
 filename = ARGV[0] if ARGV[0] != nil
@@ -14,10 +20,6 @@ if ARGV[1] != nil
    screen_id = ARGV[1].to_i
 end
 
-require 'java'
-
-
-Java::TechLityReaSvgextended::PShapeSVGExtended.TEXT_QUALITY = 2.0
 
 $app =  SobyPlayer.new screen_id
 

@@ -6,7 +6,7 @@
     attr_accessor :mat, :angle, :translation, :scale, :pre_translation, :post_translation
     attr_accessor :quat 
 
-    @@interp = Processing::PMatrix3D.new
+    @@interp = Propane::PMatrix3D.new
 
     def initialize 
       @scale = 1

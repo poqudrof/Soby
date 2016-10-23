@@ -1,0 +1,8 @@
+*.jar
+*.jnilib
+/macosx64/
+/tmp/
+/windows32/
+/windows64/
+*.dll
+*.txt
