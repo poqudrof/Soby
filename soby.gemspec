@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'soby'
-  s.version     = '0.1.1.0'
-  s.date        = '2016-10-21'
+  s.version     = '0.1.1.1'
+  s.date        = '2016-10-24'
   s.summary     = "Sozi player !"
   s.description = "Based on Sozi, it plays presentation using JRubyArt."
   s.authors     = ["Jeremy Laviole"]

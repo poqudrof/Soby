@@ -281,8 +281,6 @@ class PresentationLoader
   class MyVideo
 
     include_package 'processing.video'
-    include_package 'processing.video.Movie'
-    include_package 'org.gestreamer.elements'
 
     attr_reader :matrix, :width, :height, :slide
     attr_accessor :video
@@ -297,17 +295,10 @@ class PresentationLoader
 
     def play
       if @video == nil
-
         absolute_path = $app.sketchPath "" << @path
-
         puts ("loading the video : " + absolute_path)
         vid = Movie.new($app, absolute_path)
-
         vid.play
-#        vid = Movie.new($app, @path)
-        puts "Loaded "
-        puts vid, vid.width, vid.height
-
         @video = vid
         true
       else

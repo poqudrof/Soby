@@ -9,8 +9,6 @@ require 'java'
 require 'jruby/core_ext'
 # Processing::App::SKETCH_PATH = Dir.pwd
 
-# For the other files, we need to load the libraries
-Processing::App::load_library 'video', 'toxiclibscore', 'SVGExtended'
 
 require_relative 'soby/transforms'
 require_relative 'soby/loader'
@@ -22,10 +20,11 @@ require_relative 'soby/launcher'
 
 class SobyPlayer < Processing::App
 
-  include_package 'processing.core'
-  include_package 'toxi.geom'
+  
+  load_library 'video','video_event', 'SVGExtended'
 
-  import 'toxi.geom.Matrix4x4'
+  
+  include_package 'processing.core'
 
   attr_accessor :prez, :prev_cam, :next_cam, :slides
   attr_reader :is_moving, :current_slide_no
@@ -44,6 +43,9 @@ class SobyPlayer < Processing::App
     super()
   end
 
+  def movieEvent(m)
+    m.read
+  end
 
   # no Border
   def init
@@ -117,7 +119,6 @@ class SobyPlayer < Processing::App
     imageMode(CORNER)
 
     if(running?)
-
       push_matrix
 
       update_cam
@@ -472,8 +473,8 @@ class SobyPlayer < Processing::App
 
 end
 
-## Allow for java introspection
-SobyPlayer.become_java!
+# ## Allow for java introspection
+# SobyPlayer.become_java!
 
 ## TODO: move this somewhere
 class AppFilter < Java::javax::swing::filechooser::FileFilter

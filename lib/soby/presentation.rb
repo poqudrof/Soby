@@ -62,11 +62,10 @@ class Presentation
           # hopefully be freed
           @playing_videos << my_video if my_video.play
 
-          ## force reading here..
-          my_video.video.read if my_video.video.available?
-#          my_video.video.read
-          @graphics.image(my_video.video, 0, 0, my_video.width, my_video.height)
+          ## previous version
+          ## my_video.video.read if my_video.video.available?
 
+          @graphics.image(my_video.video, 0, 0, my_video.width, my_video.height)
 
           @graphics.pop_matrix
         end # videos.each
