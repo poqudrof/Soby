@@ -13,7 +13,9 @@ end
 # For the other files, we need to load the libraries
 
 ## Libraries located in  ../lib/java/
-# processing dependencies 'video', 'toxiclibscore', 'SVGExtended'
+# processing dependencies 'video', 'toxiclibscore?', 'SVGExtended'
+
+
 
 require_relative 'soby/transforms'
 require_relative 'soby/loader'
@@ -24,10 +26,9 @@ require_relative 'soby/launcher'
 
 class SobyPlayer < Propane::App
 
-  include_package 'processing.core'
-  include_package 'toxi.geom'
+  load_library :SVGExtended, :video
 
-  java_import 'toxi.geom.Matrix4x4'
+  include_package 'processing.core'
 
   attr_accessor :prez, :prev_cam, :next_cam, :slides
   attr_reader :is_moving, :current_slide_no

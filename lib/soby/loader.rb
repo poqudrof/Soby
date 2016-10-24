@@ -298,14 +298,13 @@ class PresentationLoader
     def play
       if @video == nil
 
-        absolute_path = $app.sketchPath "" << @path
+        absolute_path = Dir.pwd + "/" + @path
 
         puts ("loading the video : " + absolute_path)
         vid = Movie.new($app, absolute_path)
 
         vid.play
 #        vid = Movie.new($app, @path)
-        puts "Loaded "
         puts vid, vid.width, vid.height
 
         @video = vid
