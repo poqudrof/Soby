@@ -61,18 +61,53 @@ class SobyPlayer < Processing::App
   def setup
     @ready = false
 
-    @width = self.width
-    @height = self.height
     init_player
 
     @custom_setup_done = true
     @ready = true
     @has_thread = false
+    init_key_commands
   end
 
-  def ready?
-    @ready
+  def init_key_commands
+    @key_actions = {}
+
+    @key_actions['a'] = ["start autoload",
+    Proc.new { 
+      # break or return ?
+      next if @has_thread
+      puts "Thread starting"
+      Soby::auto_update self
+      @has_thread = true
+    }]
+    
+    @key_actions['h'] = ["show/hide help", 
+                         Proc.new do
+                           @is_displaying_help = false if @is_displaying_help == nil 
+                           @is_displaying_help = ! @is_displaying_help
+                         end]
+
+    @key_actions['c'] = ["save frame",
+                         Proc.new do 
+                           @frame_number = 1 if @frame_number == nil
+                           saveFrame "frame-" + @frame_number.to_s + ".png"
+                           @frame_number = @frame_number + 1
+                         end ]
+    
+    @key_actions['s'] = ["stop autoload",
+                         Proc.new { Thread::kill @thread if @has_thread }]
+    
+    @key_actions['g'] = ["clean memory", Proc.new { Java::JavaLang::System.gc }]
+
+    @key_actions['l'] = ["load another presentation", 
+                         Proc.new { load_presentation }
+                        ]
+    
   end
+
+
+
+  def ready? ; @ready ; end
 
   def init_player
     @prez = nil
@@ -107,7 +142,7 @@ class SobyPlayer < Processing::App
   end
 
   def draw
-    rect 0, 0, 100, millis / 1000
+
     if not @custom_setup_done
       custom_setup
       @custom_setup_done = true
@@ -131,9 +166,33 @@ class SobyPlayer < Processing::App
       display_slide_number
     end
 
+    display_help if @is_displaying_help
+
     custom_post_draw
   end
 
+  def display_help
+    text_size = 12
+    textSize(text_size)
+    fill 0
+    noStroke
+    translate(50, height - 200)
+    texts = []
+
+    @key_actions.each_pair do |key_name, action|
+      description = action[0]
+      t = "#{key_name} - #{description}"
+      text(t, 0, 0)
+      translate(0, text_size + text_size /2);
+    end
+      
+    # texts.each do |t|
+    #   text(t, 0, 0)
+    #   translate(0, text_size + text_size /2);
+    # end
+
+  end
+  
   def run_slide_code
     translate 0, 0, 1
     if not @is_moving and @current_slide_no != 0
@@ -145,11 +204,10 @@ class SobyPlayer < Processing::App
     end
   end
 
-
   def display_slide_number
     # Slide number
     push_matrix
-    translate(@width - 40, @height - 45)
+    translate(self.width - 40, self.height - 45)
     fill(30)
     strokeWeight(3)
     stroke(190)
@@ -176,11 +234,6 @@ class SobyPlayer < Processing::App
 
   def key_pressed
 
-    if key == 'g'
-      puts "Garbage"
-      Java::JavaLang::System.gc
-    end
-
     return if @prez == nil
 
     if keyCode == LEFT
@@ -191,43 +244,10 @@ class SobyPlayer < Processing::App
       next_slide
     end
 
-    if key == 'l'
-      # selectInput("Select a file to process:",
-      #             "fileSelected",
-      #             Java::JavaIo::File.new(SKETCH_ROOT))
-
-      folder = Java::JavaIo::File.new(SKETCH_ROOT)
-      fc = Java::javax::swing::JFileChooser.new("Soby Loader")
-      fc.set_dialog_title "Select your presentation"
-      fc.setFileFilter AppFilter.new
-      fc.setCurrentDirectory folder
-      success = fc.show_open_dialog(nil)
-      if success == Java::javax::swing::JFileChooser::APPROVE_OPTION
-        path = fc.get_selected_file.get_absolute_path
-        puts "User selected " + path
-        presentation = Soby::load_presentation path
-        Soby::start_presentation presentation
-      else
-        puts "No file"
-      end
+    @key_actions.each_pair do |key_name, command|
+      command[1][] if key == key_name
     end
 
-    if key == 'a'
-      return if @has_thread
-      puts "Thread starting"
-      Soby::auto_update self
-      @has_thread = true
-    end
-    
-    if key == 'c'
-      @frame_number = 1 if @frame_number == nil
-      saveFrame "frame-" + @frame_number.to_s + ".png"
-      @frame_number = @frame_number + 1
-    end
-    
-    if key == 's'
-      Thread::kill @thread if @has_thread
-    end
     #    puts "slide #{@current_slide_no} "
   end
 
@@ -258,6 +278,23 @@ class SobyPlayer < Processing::App
     end
   end
 
+  def load_presentation
+    folder = Java::JavaIo::File.new(SKETCH_ROOT)
+    fc = Java::javax::swing::JFileChooser.new("Soby Loader")
+    fc.set_dialog_title "Select your presentation"
+    fc.setFileFilter AppFilter.new
+    fc.setCurrentDirectory folder
+    success = fc.show_open_dialog(nil)
+    if success == Java::javax::swing::JFileChooser::APPROVE_OPTION
+      path = fc.get_selected_file.get_absolute_path
+      puts "User selected " + path
+      presentation = Soby::load_presentation path
+      Soby::start_presentation presentation
+    else
+      puts "No file"
+    end
+  end
+
 
   def set_prez (prez)
     current_slide = @current_slide_no
@@ -279,8 +316,8 @@ class SobyPlayer < Processing::App
   end
 
   def compute_view(view, slide_number)
-    #    view = createGraphics(@width, @height, P3D)
-    #    @next_view = createGraphics(@width, @height)
+    #    view = createGraphics(@width, self.height, P3D)
+    #    @next_view = createGraphics(@width, self.height)
     view.beginDraw
 
     cam = slide_view slide_number
@@ -314,7 +351,7 @@ class SobyPlayer < Processing::App
     if @slides[@current_slide_no].has_next_animation?
       puts "Animation Next "
       anim = @slides[@current_slide_no].next_animation
-      anim.pshape_elem.setVisible(true)
+      anim.pshape_elem.setVisible(true) unless anim.pshape_elem == nil
       return
     end
 
@@ -416,16 +453,16 @@ class SobyPlayer < Processing::App
     x = @prez.slides[slide_no].x
     y = @prez.slides[slide_no].y
 
-    sc1 = @width.to_f / w.to_f
-    sc2 = @height.to_f / h.to_f
+    sc1 = self.width.to_f / w.to_f
+    sc2 = self.height.to_f / h.to_f
 
     # scale
     sc = [sc1, sc2].min
 
 
     # translate
-    dx = ((@width / sc) - w) * 0.5
-    dy = ((@height / sc) - h) * 0.5
+    dx = ((self.width / sc) - w) * 0.5
+    dy = ((self.height / sc) - h) * 0.5
 
     cam = Cam.new
 
@@ -453,8 +490,8 @@ class SobyPlayer < Processing::App
     my_scale = find_scale
 
     # centering
-    dx = ((@width / my_scale) - @prez.width) * 0.5
-    dy = ((@height / my_scale) - @prez.height) * 0.5
+    dx = ((self.width / my_scale) - @prez.width) * 0.5
+    dy = ((self.height / my_scale) - @prez.height) * 0.5
 
     cam = Cam.new
     cam.scale = my_scale
@@ -465,8 +502,8 @@ class SobyPlayer < Processing::App
   end
 
   def find_scale
-    sc1 = @width / @prez.width
-    sc2 = @height / @prez.height
+    sc1 = self.width / @prez.width
+    sc2 = self.height / @prez.height
     return [sc1, sc2].min
   end
   private :find_scale
@@ -479,10 +516,12 @@ end
 ## TODO: move this somewhere
 class AppFilter < Java::javax::swing::filechooser::FileFilter
   def accept fobj
-    return true if fobj.canExecute
-    return fobj.isDirectory
+    return true if fobj.getName().end_with?(".svg")
+#    return true if fobj.canExecute
+#    return fobj.isDirectory
+    false
   end
   def getDescription
-    "Applications"
+    "Soby Presentations"
   end
 end
