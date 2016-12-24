@@ -17,13 +17,10 @@ require_relative 'soby/slide'
 require_relative 'soby/cam'
 require_relative 'soby/launcher'
 
-
 class SobyPlayer < Processing::App
 
-  
   load_library 'video','video_event', 'SVGExtended'
 
-  
   include_package 'processing.core'
 
   attr_accessor :prez, :prev_cam, :next_cam, :slides
@@ -73,36 +70,39 @@ class SobyPlayer < Processing::App
     @key_actions = {}
 
     @key_actions['a'] = ["start autoload",
-    Proc.new { 
+    Proc.new {
       # break or return ?
       next if @has_thread
       puts "Thread starting"
       Soby::auto_update self
       @has_thread = true
     }]
-    
-    @key_actions['h'] = ["show/hide help", 
+
+    @key_actions['h'] = ["show/hide help",
                          Proc.new do
-                           @is_displaying_help = false if @is_displaying_help == nil 
+                           @is_displaying_help = false if @is_displaying_help == nil
                            @is_displaying_help = ! @is_displaying_help
                          end]
 
     @key_actions['c'] = ["save frame",
-                         Proc.new do 
+                         Proc.new do
                            @frame_number = 1 if @frame_number == nil
                            saveFrame "frame-" + @frame_number.to_s + ".png"
                            @frame_number = @frame_number + 1
                          end ]
-    
+
     @key_actions['s'] = ["stop autoload",
                          Proc.new { Thread::kill @thread if @has_thread }]
-    
+
+    @key_actions['r'] = ["custom setup restart",
+                         Proc.new { @custom_setup_done = false }]
+
     @key_actions['g'] = ["clean memory", Proc.new { Java::JavaLang::System.gc }]
 
-    @key_actions['l'] = ["load another presentation", 
+    @key_actions['l'] = ["load another presentation",
                          Proc.new { load_presentation }
                         ]
-    
+
   end
 
 
@@ -134,7 +134,7 @@ class SobyPlayer < Processing::App
   end
 
   def custom_pre_draw
-    background(255)
+    background(150)
   end
 
   def custom_post_draw
@@ -142,13 +142,14 @@ class SobyPlayer < Processing::App
   end
 
   def draw
-
     if not @custom_setup_done
       custom_setup
       @custom_setup_done = true
     end
 
     custom_pre_draw
+
+
 
     shapeMode(CORNER)
     imageMode(CORNER)
@@ -166,7 +167,8 @@ class SobyPlayer < Processing::App
       display_slide_number
     end
 
-    display_help if @is_displaying_help
+
+    display_help if @is_displaying_help or @prez == nil
 
     custom_post_draw
   end
@@ -174,8 +176,16 @@ class SobyPlayer < Processing::App
   def display_help
     text_size = 12
     textSize(text_size)
-    fill 0
-    noStroke
+
+    # fill 200
+    # stroke 180
+    # rect(width/2, height/2, 50, 20);
+
+    fill 200
+    stroke 255
+
+    text "Soby Player", width/2, height/2 if @prez == nil
+
     translate(50, height - 200)
     texts = []
 
@@ -183,16 +193,16 @@ class SobyPlayer < Processing::App
       description = action[0]
       t = "#{key_name} - #{description}"
       text(t, 0, 0)
-      translate(0, text_size + text_size /2);
+      translate(0, text_size + text_size/2);
     end
-      
+
     # texts.each do |t|
     #   text(t, 0, 0)
     #   translate(0, text_size + text_size /2);
     # end
 
   end
-  
+
   def run_slide_code
     translate 0, 0, 1
     if not @is_moving and @current_slide_no != 0
@@ -220,7 +230,7 @@ class SobyPlayer < Processing::App
       translate 2, 0
     else
       translate -3.5, 0
-    end 
+    end
     text(@current_slide_no.to_s, 10, 30)
     pop_matrix
   end
@@ -234,6 +244,10 @@ class SobyPlayer < Processing::App
 
   def key_pressed
 
+    @key_actions.each_pair do |key_name, command|
+      command[1][] if key == key_name
+    end
+
     return if @prez == nil
 
     if keyCode == LEFT
@@ -244,9 +258,6 @@ class SobyPlayer < Processing::App
       next_slide
     end
 
-    @key_actions.each_pair do |key_name, command|
-      command[1][] if key == key_name
-    end
 
     #    puts "slide #{@current_slide_no} "
   end

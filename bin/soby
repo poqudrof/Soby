@@ -16,15 +16,16 @@ end
 
 require 'java'
 
-
 Java::TechLityReaSvgextended::PShapeSVGExtended.TEXT_QUALITY = 2.0
 
 $app =  SobyPlayer.new screen_id
 
 sleep 0.2 while not $app.ready?
 
-if filename != nil
+if filename != nil and filename != ""
   presentation = Soby::load_presentation ARGV[0]
   Soby::start_presentation presentation
 end
 # Soby::auto_update presentation, __FILE__
+
+load '../lib/extensions/backgrounds/circles-bg.rb'
