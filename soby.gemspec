@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'soby'
   s.version     = '0.1.1.2'
-  s.date        = '2016-10-24'
+  s.date        = '2016-12-24'
   s.summary     = "Sozi player !"
   s.description = "Based on Sozi, it plays presentation using JRubyArt."
   s.authors     = ["Jeremy Laviole"]
@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
                    "lib/soby/transforms.rb", "lib/soby/launcher.rb",
                    "lib/soby/loader.rb",
                    "lib/extensions/backgrounds/circles-bg.rb",
-                   "lib/extensions/backgrounds/circle.rb"
+                   "lib/extensions/backgrounds/circles.rb"
                   ]
 
   s.executables = ["soby"]

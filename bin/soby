@@ -28,4 +28,5 @@ if filename != nil and filename != ""
 end
 # Soby::auto_update presentation, __FILE__
 
-load '../lib/extensions/backgrounds/circles-bg.rb'
+# require_relative '../lib/extensions/backgrounds/circles-bg.rb'
+# load '../lib/extensions/backgrounds/circles-bg.rb'
