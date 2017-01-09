@@ -205,11 +205,12 @@ class SobyPlayer < Processing::App
 
   def run_slide_code
     translate 0, 0, 1
+#    puts "run slide code"
     if not @is_moving and @current_slide_no != 0
       desc = @prez.slides[@current_slide_no].description
       if(desc != nil)
-        #          puts "EVAL #{desc}"
-        eval desc
+#        puts "EVAL #{desc}"
+        instance_eval desc
       end
     end
   end
@@ -242,7 +243,7 @@ class SobyPlayer < Processing::App
   alias :default_display_slide_number :display_slide_number
 
 
-  def key_pressed
+  def key_pressed(*args)
 
     @key_actions.each_pair do |key_name, command|
       command[1][] if key == key_name
@@ -268,7 +269,7 @@ class SobyPlayer < Processing::App
 
 
 
-  def mouse_dragged
+  def mouse_dragged (*args)
     if not @is_moving
       tr = PMatrix3D.new
       tr.translate(mouse_x - pmouse_x, mouse_y - pmouse_y)
@@ -308,13 +309,14 @@ class SobyPlayer < Processing::App
 
 
   def set_prez (prez)
-    current_slide = @current_slide_no
+#    current_slide = @current_slide_no
 
     #    PShape.loadedImages.clear
     @prez = prez
     @slides = prez.slides
 
-    goto_slide current_slide
+    # TODO: check slide number, if different go to 0
+    goto_slide 0
 
     @is_running = true
     @prez_middle = PVector.new(@prez.width / 2.0, @prez.height / 2.0)
