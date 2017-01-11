@@ -41,9 +41,7 @@ We already have cool features: 
 * Soby is distributed as Ruby Gem, not everyone can install Processing, JRuby, Processing libraries and an Inkscape plugin.  Solution -> distribution as a binary. 
 * Soby need some advanced use of Inkscape and the Sozi plugin is far from perfect. Solution -> New plugin for Inkscape. We do not plan to create an editor separated from the player. 
 * Soby's force is the possibility to create code for your presentation. Even though Ruby is easy to try, it will require many tutorials to make it accessible for everyone. 
-* For many people a presentation is a PowerPoint, for other nothing is better than Beamer.
-
-* It is based on a Sozi [unmaintained version](https://github.com/senshu/Sozi/releases/tag/13.11).
+* For many people a presentation is a PowerPoint. We feel sorry and invite them to see [this page](http://alternativeto.net/software/microsoft-powerpoint/). 
 
 ### How to use ?  (linux)
 
@@ -54,6 +52,8 @@ We already have cool features: 
  4. Install Soby using rubygems : `gem install soby`
  5. Clone the repository.
  6. Try out an example: `cd Soby/examples/video ; soby presentation.svg`  . 
+ 7. Download and install the Sozi [inkscape plugin](https://github.com/senshu/Sozi/releases/tag/13.11).
+
 
 Soby can have up to two arguments, the first one is the presentation to load, the second is optional is the screen on which to run the presentation.
 Please remember this program is in its early development stage.
@@ -64,9 +64,7 @@ Please remember this program is in its early development stage.
 Follow the same steps as in Linux. I will post instructions once I start doing ruby and JrubyARt on Windows. 
 
 ## Example
-jn
-New example coming soon. 
-
+Please download and try out the presentations in the example folder. 
 Example of a presentation done with Soby (and [Skatolo](https://github.com/potioc/Skatolo)):
 
 watch at:  2:40  and 4:20
