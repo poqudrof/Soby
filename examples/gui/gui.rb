@@ -1,5 +1,5 @@
 ## re-open the class
-require 'skatolo'
+require 'skatolo'
 
 class SobyPlayer
 

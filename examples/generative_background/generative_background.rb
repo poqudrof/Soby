@@ -2,7 +2,6 @@
 
 class SobyPlayer
 
-
   def fonce
     background_amplitude 10, 2
     background_min 40
@@ -50,11 +49,11 @@ class SobyPlayer
 
   def init_background
     @init_background = true
-    @background = createGraphics @width, @height
+    @background = createGraphics width, height
     @background_colors = Hash.new
     @square_size = 15
-    @nb_squares_x = @width / @square_size + 1
-    @nb_squares_y = @height / @square_size + 1
+    @nb_squares_x = width / @square_size + 1
+    @nb_squares_y = height / @square_size + 1
     @last_update = 0
     reset_background
   end
@@ -65,7 +64,7 @@ class SobyPlayer
       @last_update = millis()
     end
 
-    image @background, 0, 0, @width, @height
+    image @background, 0, 0, width, height
   end
 
 

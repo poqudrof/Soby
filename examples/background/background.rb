@@ -18,10 +18,10 @@ class SobyPlayer
 
     fill(255, 120)
     textFont(@font, 25)
-    rect(80, @height - 80, @footer.size * 10 + 100, 50)
+    rect(80, height - 80, @footer.size * 10 + 100, 50)
 
     fill(0)
-    text(@footer, 100, @height - 50)
+    text(@footer, 100, height - 50)
   end
 
   def custom_post_draw
