@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'soby'
-  s.version     = '0.1.1.2'
-  s.date        = '2016-12-24'
+  s.version     = '0.1.1.3'
+  s.date        = '2017-01-11'
   s.summary     = "Sozi player !"
   s.description = "Based on Sozi, it plays presentation using JRubyArt."
   s.authors     = ["Jeremy Laviole"]
@@ -22,6 +22,5 @@ Gem::Specification.new do |s|
   s.post_install_message = %q{Use 'soby presentation.svg 1' to run a presentation file presentation.svg on screen #1 }
 
   s.homepage    = 'https://github.com/poqudrof/Soby'
-  s.license     = 'LGPL'
 
 end
