@@ -2,32 +2,97 @@ Soby :
 
 [![Gem Version](https://badge.fury.io/rb/soby.svg)](https://badge.fury.io/rb/soby)
 
-Presentation software based on SVG created by Sozi.
+Presentation software based on SVG created by Sozi (legacy version).
 
-### Concept :
+## Soby is getting stable
 
-* Presentation softwares are cool things.
-* Presentation softwares are limited, and creating animations is
-  awfully difficult.
-* [Processing](http://processing.org) is awesome.
-* [JRubyArt](https://github.com/ruby-processing/JRubyArt) is
-  super-awesome, because it is Processing and it can be live and
-  interpreted.
+Soby is a presentation software unlike any other. It is for *presentation enthousiats*: it will give you the
+freedom you deserve for building presentations. 
 
-The slides can contain anything than can be displayed in our [extended
-version of Processing](https://github.com/poqudrof/processing/releases/tag/3.0-svg).
+The presentations are *planar* very much like [Prezi](https://prezi.com/). Soby takes advantage from the Inkscape plugin 
+to create Sozi presentations [Sozi](http://sozi.baierouge.fr/). The plugin is no longer maintained and will be replaced
+by our own plugin at some point. 
 
-So it is :
-- Images loaded in code or ebmedded in a SVG.
-- Videos using the [Processing video library](https://github.com/processing/processing-video).
-- Cool generative designs, coded in scripts or directly in the SVG file.
-- Like Sozi the presentation software changes the view on a SVG image created in inkscape.
-- Unlike Sozi, it is not self-contained. For now it requires Processing, JRuby and a few ruby gems.
+### Why is Soby so cool ?
 
-Animations are supported.
+* You can make beautiful presentations with [Inkscape](https://inkscape.org/). Inkscape is an
+amazing software to create vector graphics. So you can create your slides nearly in a what you see is what you get way.
 
-It is based on Sozi on a [unmaintained version](https://github.com/senshu/Sozi/releases/tag/13.11). :
+* You can put 2D and 3D content in you presentation. Soby is a [Processing](http://processing.org) program, so you can 
+display 2D and 3D elements as easily as in Processing !
+* Soby is made to be hacked and open endend. Every slide or presentation can change the behaviour of Soby !
 
+Our goal is to have user-contributed: 
+
+* Generative backgrounds.  [2 for now]. 
+* Shaders for transitions. [1 experimental]
+* Animation in slides  [to implement]
+
+We already have cool features: 
+
+* Nearly full support SVG: curves, lines, embedded images, linked images, and text. The project is: [SVGExtended](https://github.com/Rea-lity-Tech/SVGExtended). 
+* GUI inside presentations with [Skatolo](https://github.com/poqudrof/Skatolo) and the [gui example](https://github.com/poqudrof/Soby/tree/master/examples/gui)
+* Big presentations can be divided in small presentations, each [loading](https://github.com/poqudrof/Soby/tree/master/examples/load-presentation) the next one. 
+* Each slide can hade embedded code like in the [generative background](https://github.com/poqudrof/Soby/tree/master/examples/generative_background) example.
+* External ruby files can be loaded when the presentation is loaded. 
+* Distribution as JRuby Gem. Hopefully soon as a binary.  
+
+
+### Why is Soby not for everyone yet ? 
+
+* Soby is distributed as Ruby Gem, not everyone can install Processing, JRuby, and the Processing libraries.  Solution -> distribution as a binary. 
+* Soby need some advanced use of Inkscape and the Sozi plugin is far from perfect. Solution -> New plugin for Inkscape. We do not plan to create an editor separated from the player. 
+* Soby :
+
+[![Gem Version](https://badge.fury.io/rb/soby.svg)](https://badge.fury.io/rb/soby)
+
+Presentation software based on SVG created by Sozi (legacy version).
+
+## Soby is getting stable
+
+Soby is a presentation software unlike any other. It is for *presentation enthousiats*: it will give you the
+freedom you deserve for building presentations. 
+
+The presentations are *planar* very much like [Prezi](https://prezi.com/). Soby takes advantage from the Inkscape plugin 
+to create Sozi presentations [Sozi](http://sozi.baierouge.fr/). The plugin is no longer maintained and will be replaced
+by our own plugin at some point. 
+
+### Why is Soby so cool ?
+
+* You can make beautiful presentations with [Inkscape](https://inkscape.org/). Inkscape is an
+amazing software to create vector graphics. So you can create your slides nearly in a what you see is what you get way.
+
+* You can put 2D and 3D content in you presentation. Soby is a [Processing](http://processing.org) program, so you can 
+display 2D and 3D elements as easily as in Processing !
+* Soby is made to be hacked and open endend. Every slide or presentation can change the behaviour of Soby !
+
+Our goal is to have user-contributed: 
+
+* Generative backgrounds.  [2 for now]. 
+* Shaders for transitions. [1 experimental]
+* Animation in slides  [to implement]
+* Video player. Ours just play the video once. 
+
+We already have cool features: 
+
+* Nearly full support SVG: curves, lines, embedded images, linked images, and text. The project is: [SVGExtended](https://github.com/Rea-lity-Tech/SVGExtended). 
+* GUI inside presentations with [Skatolo](https://github.com/poqudrof/Skatolo) and the [gui example](https://github.com/poqudrof/Soby/tree/master/examples/gui)
+* Big presentations can be divided in small presentations, each [loading](https://github.com/poqudrof/Soby/tree/master/examples/load-presentation) the next one. 
+* Each slide can hade embedded code like in the [generative background](https://github.com/poqudrof/Soby/tree/master/examples/generative_background) example.
+* External ruby files can be loaded when the presentation is loaded. 
+* Distribution as JRuby Gem. Hopefully soon as a binary.  
+* It can be hacked in much more than it is like a game engine.  
+* It is completely open source and free and relies only on open source and free software. 
+
+### Why is Soby not for everyone yet ? 
+
+* Not everyone likes planar presentations. (However you can make standard presentations with Soby). 
+* Soby is distributed as Ruby Gem, not everyone can install Processing, JRuby, Processing libraries and an Inkscape plugin.  Solution -> distribution as a binary. 
+* Soby need some advanced use of Inkscape and the Sozi plugin is far from perfect. Solution -> New plugin for Inkscape. We do not plan to create an editor separated from the player. 
+* Soby's force is the possibility to create code for your presentation. Even though Ruby is easy to try, it will require many tutorials to make it accessible for everyone. 
+* For many people a presentation is a PowerPoint, for other nothing is better than Beamer.
+
+* It is based on a Sozi [unmaintained version](https://github.com/senshu/Sozi/releases/tag/13.11).
 
 ### How to use ?  (linux)
 
@@ -48,10 +113,14 @@ Please remember this program is in its early development stage.
 Follow the same steps as in Linux. I will post instructions once I start doing ruby and JrubyARt on Windows. 
 
 ## Example
-
+jn
 New example coming soon. 
 
 Example of a presentation done with Soby (and [Skatolo](https://github.com/potioc/Skatolo)):
 
 watch at:  2:40  and 4:20
 https://www.youtube.com/watch?v=QhaNQqVbpCQ&index=5&list=PL9T8000j7sJDcOoHA8r18561F3jDXZASN
+
+
+
+
