@@ -1,4 +1,3 @@
-## re-open the class
 require 'skatolo'
 
 class SobyPlayer
@@ -8,13 +7,8 @@ class SobyPlayer
     self.class.send(:define_method, name, &block)
   end
 
-  ## To be overriden by the Presentation Code.
   def custom_setup
-
     @skatolo = Skatolo.new self
-
-    init_gui
-
     @setup_done = true
   end
 
@@ -42,20 +36,12 @@ class SobyPlayer
   def custom_pre_draw
     background 255
     return unless @setup_done
-
     return if not @has_gui
     background background_color_value
   end
-
-
   def reset
     goto_slide 0
     init_gui
     background_color_value = 120
   end
-
-  def custom_post_draw
-
-  end
-
 end

@@ -23,16 +23,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="781.39371"
-     inkscape:cy="576.83851"
+     inkscape:zoom="0.24748738"
+     inkscape:cx="926.19715"
+     inkscape:cy="-92.131868"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1366"
-     inkscape:window-height="730"
-     inkscape:window-x="0"
-     inkscape:window-y="20"
+     inkscape:window-width="1282"
+     inkscape:window-height="1047"
+     inkscape:window-x="630"
+     inkscape:window-y="6"
      inkscape:window-maximized="0" />
   <defs
      id="defs4" />
@@ -49,105 +49,92 @@
     </rdf:RDF>
   </metadata>
   <g
-     inkscape:label="Calque 1"
-     inkscape:groupmode="layer"
+     transform="translate(0,27.63782)"
      id="layer1"
-     transform="translate(0,27.63782)">
+     inkscape:groupmode="layer"
+     inkscape:label="Calque 1">
     <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:28.75px;line-height:125%;font-family:Serif;-inkscape-font-specification:'Serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="739.43164"
-       y="125.04214"
+       sodipodi:linespacing="125%"
        id="text4159"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan4161"
+       y="125.04214"
+       x="739.43164"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:28.75px;line-height:125%;font-family:Serif;-inkscape-font-specification:'Serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         y="125.04214"
          x="739.43164"
-         y="125.04214">What a nice background !</tspan></text>
+         id="tspan4161"
+         sodipodi:role="line">What a nice background !</tspan></text>
     <rect
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:4.23779535;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       y="412.79443"
+       x="98.59491"
+       height="545.76471"
+       width="824.56683"
        id="rect4163"
-       width="612.15247"
-       height="369.71582"
-       x="42.426395"
-       y="363.43814">
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:5.97574186;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1">
+      <desc
+         id="desc4155">init_gui if not @has_gui</desc>
       <title
          id="title4826">code</title>
     </rect>
     <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:28.75px;line-height:125%;font-family:Serif;-inkscape-font-specification:'Serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="247.48737"
-       y="406.87469"
+       sodipodi:linespacing="125%"
        id="text4165"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
+       y="483.00165"
+       x="428.67831"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:28.75px;line-height:125%;font-family:Serif;-inkscape-font-specification:'Serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         y="483.00165"
+         x="428.67831"
          id="tspan4167"
-         x="247.48737"
-         y="406.87469">First frame</tspan></text>
+         sodipodi:role="line">First frame</tspan><tspan
+         y="518.93915"
+         x="428.67831"
+         sodipodi:role="line"
+         id="tspan4201">show GUI</tspan></text>
     <rect
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:4.23779535;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       y="414.8681"
+       x="966.36932"
+       height="541.61737"
+       width="860.82562"
        id="rect4163-7"
-       width="612.15247"
-       height="369.71582"
-       x="861.6601"
-       y="370.50922">
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:6.08247089;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1">
       <desc
          id="desc4824">remove_gui if @has_gui</desc>
       <title
          id="title4822">code</title>
     </rect>
     <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:28.75px;line-height:125%;font-family:Serif;-inkscape-font-specification:'Serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="1080.8632"
-       y="409.90515"
+       sodipodi:linespacing="125%"
        id="text4165-4"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan4167-2"
-         x="1080.8632"
-         y="409.90515">Second frame</tspan></text>
-    <rect
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:4.23779535;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="rect4163-7-8"
-       width="612.15247"
-       height="369.71582"
-       x="1556.645"
-       y="370.50922">
-      <desc
-         id="desc4824-6">init_gui if not @has_gui</desc>
-      <title
-         id="title4822-8">code</title>
-    </rect>
-    <text
-       xml:space="preserve"
+       y="483.00165"
+       x="1295.2446"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:28.75px;line-height:125%;font-family:Serif;-inkscape-font-specification:'Serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="1761.7059"
-       y="413.94577"
-       id="text4165-4-9"
-       sodipodi:linespacing="125%"><tspan
+       xml:space="preserve"><tspan
+         y="483.00165"
+         x="1295.2446"
+         id="tspan4167-2"
+         sodipodi:role="line">Second frame</tspan><tspan
+         y="518.93915"
+         x="1295.2446"
          sodipodi:role="line"
-         id="tspan4167-2-1"
-         x="1761.7059"
-         y="413.94577">Third frame</tspan></text>
+         id="tspan4203">hide GUI</tspan></text>
     <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="317.1879"
-       y="114.94063"
+       sodipodi:linespacing="125%"
        id="text4151"
-       sodipodi:linespacing="125%"><desc
+       y="114.94063"
+       x="317.1879"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><desc
          id="desc4157">gui.rb</desc><title
          id="title4155">code</title><tspan
-         sodipodi:role="line"
-         id="tspan4153"
+         y="114.94063"
          x="317.1879"
-         y="114.94063">gui.rb</tspan></text>
+         id="tspan4153"
+         sodipodi:role="line">gui.rb</tspan></text>
   </g>
   <script
-     id="sozi-script"
-     ns1:version="13.11-30213629">/*
+     ns1:version="13.11-30213629"
+     id="sozi-script">/*
  * Sozi - A presentation tool using the SVG standard
  *
  * Copyright (C) 2010-2013 Guillaume Savaton
@@ -2846,8 +2833,8 @@ namespace(this, &quot;sozi.player&quot;, function (exports, window) {
 */
 </script>
   <style
-     id="sozi-style"
-     ns1:version="13.11-30213629">/*
+     ns1:version="13.11-30213629"
+     id="sozi-style">/*
  * Sozi - A presentation tool using the SVG standard
  *
  * Copyright (C) 2010-2013 Guillaume Savaton
@@ -2908,45 +2895,31 @@ namespace(this, &quot;sozi.player&quot;, function (exports, window) {
 }
 </style>
   <ns1:frame
-     ns1:refid="rect4163-7"
-     ns1:title="frame2"
+     id="frame7703"
+     ns1:transition-path-hide="true"
+     ns1:transition-profile="linear"
+     ns1:transition-zoom-percent="0.0"
+     ns1:transition-duration-ms="1000.0"
+     ns1:timeout-ms="5000.0"
+     ns1:timeout-enable="false"
+     ns1:show-in-frame-list="true"
+     ns1:clip="true"
+     ns1:hide="true"
      ns1:sequence="2"
-     ns1:hide="true"
-     ns1:clip="true"
-     ns1:show-in-frame-list="true"
-     ns1:timeout-enable="false"
-     ns1:timeout-ms="5000.0"
-     ns1:transition-duration-ms="1000.0"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-profile="linear"
-     ns1:transition-path-hide="true"
-     id="frame7703" />
+     ns1:title="frame2"
+     ns1:refid="rect4163-7" />
   <ns1:frame
-     ns1:refid="rect4163"
-     ns1:title="frame1"
+     id="frame7701"
+     ns1:transition-path-hide="true"
+     ns1:transition-profile="linear"
+     ns1:transition-zoom-percent="0.0"
+     ns1:transition-duration-ms="1000.0"
+     ns1:timeout-ms="5000.0"
+     ns1:timeout-enable="false"
+     ns1:show-in-frame-list="true"
+     ns1:clip="true"
+     ns1:hide="true"
      ns1:sequence="1"
-     ns1:hide="true"
-     ns1:clip="true"
-     ns1:show-in-frame-list="true"
-     ns1:timeout-enable="false"
-     ns1:timeout-ms="5000.0"
-     ns1:transition-duration-ms="1000.0"
-     ns1:transition-zoom-percent="0.0"
-     ns1:transition-profile="linear"
-     ns1:transition-path-hide="true"
-     id="frame7701" />
-  <ns1:frame
-     id="frame9803"
-     ns1:transition-path-hide="true"
-     ns1:transition-profile="linear"
-     ns1:transition-zoom-percent="0"
-     ns1:transition-duration-ms="1000"
-     ns1:timeout-ms="5000"
-     ns1:timeout-enable="false"
-     ns1:show-in-frame-list="true"
-     ns1:clip="true"
-     ns1:hide="true"
-     ns1:sequence="3"
-     ns1:title="frame3"
-     ns1:refid="rect4163-7-8" />
+     ns1:title="frame1"
+     ns1:refid="rect4163" />
 </svg>
