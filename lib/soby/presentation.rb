@@ -16,8 +16,8 @@ class Presentation
   attr_accessor :graphics
 
   def initialize (app)
-    @app = app
-    @graphics = @app.g
+    @renderer = app
+    @graphics = @renderer
     @slides = {}
     @nb_slides = 0
     @playing_videos = []
@@ -44,9 +44,9 @@ class Presentation
 
 
   def display_videos
-    if not @app.is_moving
+    if not @renderer.is_moving
 
-      slide_no = @app.current_slide_no
+      slide_no = @renderer.current_slide_no
 
       # # Display the videos
       if slide_no > 0 and  @slides[slide_no].has_videos?

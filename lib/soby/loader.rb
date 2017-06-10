@@ -18,8 +18,7 @@ class PresentationLoader
   def initialize (app, url)
     @app = app
     @url = url
-
-    @presentation = Presentation.new(app)
+    @presentation = Presentation.new(app.renderer)
     @presentation.url = @url
     load_files
     build_internal
